@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{%static 'css/users.css' %}">
+</head>
+<body>
+    <main>
+        <h1>Lista de clientes</h1>
+        <div class="gridUsers">
+
+            {% for user in users %}
+                <div class="userDisplay">
+                    <img src={{user.photo}} alt="Profile">
+                    <div class="userDisplayInfoContainer">
+                        <h2 class="userDisplayName">{{user.name}}</h2>
+                        <div class="userDisplayInfo">
+                            <p><strong>ID:</strong> {{user.id}}</p>
+                            <p><strong>Age:</strong> {{user.age}}</p>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </main>
+</body>
+</html>
