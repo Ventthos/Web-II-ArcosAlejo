@@ -1,0 +1,8 @@
+footer{
+    background-color: black;
+    padding: 1.2rem;
+}
+footer p{
+    text-align: center;
+    color: white;
+}

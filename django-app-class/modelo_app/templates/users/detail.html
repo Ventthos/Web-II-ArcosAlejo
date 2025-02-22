@@ -1,0 +1,64 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    
+    <link rel="stylesheet" href="{%static 'css/userDetail.css' %}">
+    
+{% endblock %}
+
+{%block content %}
+<form method="POST" action="{% url 'updateUser' %}">
+    {% csrf_token %}
+    <div class="field">
+        <label for="name">Id</label>
+        <input type="text" name="id" id="id" value={{user.id}} required readonly>
+    </div>
+
+    <div class="field">
+        <label for="name">Nombre</label>
+        <input type="text" name="name" id="name" value={{user.name}} required>
+    </div>
+
+    <div class="field">
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email" value={{user.email}} required>
+    </div>
+
+    <div class="field">
+        <label for="age">Edad</label>
+        <input type="number" name="age" id="age" value={{user.age}} required>
+    </div>
+
+    <div class="field">
+        <label for="rfc">RFC</label>
+        <input type="text" name="rfc" id="rfc" value={{user.rfc}} required>
+    </div>
+
+    <div class="field">
+        <label for="photo"> Foto</label>
+        <input type="text" name="photo" id="photo" value={{user.photo}} required> 
+    </div>
+
+    <button type="submit">Actualizar</button>
+</form>
+
+<table>
+    <tr>
+      <th>Calle</th>
+      <th>Código postal</th>
+      <th>Ciudad</th>
+      <th>País</th>
+    </tr>
+    {% for direction in directions%}
+        <tr>
+            <td>{{direction.street}}</td>
+            <td>{{direction.zip_code}}</td>
+            <td>{{direction.city}}</td>
+            <td>{{direction.country}}</td>
+        </tr>
+    {% endfor %}
+    
+  </table>
+{% endblock %}
+

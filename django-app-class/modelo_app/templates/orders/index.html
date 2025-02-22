@@ -1,13 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    {% load static %}
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
     <link rel="stylesheet" href="{%static 'css/orders.css' %}">
-</head>
-<body>
+{% endblock %}
+
+{% block content %}
     <h1>{{titulo}}</h1>
     <p>Total de ordenes {{total_orders}}</p>
     <p>Total de pagos {{total_payments}}</p>
@@ -19,11 +17,7 @@
     </div>
     <div class="container">
         {% for q in questions %}
-            <div>
-                {{q.id}} --- {{q.question_text}}
-            </div> 
+            {% include 'components/QuestionCard.html' with id=q.id question_text=q.question_text%} 
         {% endfor %}
     </div>
-    
-</body>
-</html>
+{% endblock %}

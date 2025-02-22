@@ -1,0 +1,32 @@
+body{
+    margin: 0;
+}
+nav{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    background-color: black;
+    padding: 1.6rem;
+    justify-content: space-between;
+    color: white;
+}
+
+.menu-options{
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+
+.menu-options a{
+    text-decoration: none;
+}
+
+nav a:visited {
+    color: white; /* Mantiene el color después de haber sido visitado */
+}
+
+img{
+    width: 3rem;
+    height: 3rem;
+}

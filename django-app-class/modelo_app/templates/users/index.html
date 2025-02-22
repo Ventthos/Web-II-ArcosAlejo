@@ -1,19 +1,21 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Users</title>
+{% extends 'base/base.html' %}
 
-    {% load static %}
-    <link rel="stylesheet" href="{%static 'css/users.css' %}">
-</head>
-<body>
-    <main>
-        <h1>Lista de clientes</h1>
-        <div class="gridUsers">
+{% load static %}
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/users.css' %}">
 
-            {% for user in users %}
+{% endblock %}
+
+{% block content %}
+
+<main>
+    <h1>Lista de clientes</h1>
+    <div class="gridUsers">
+        {% for item in users %}
+            {% include 'components/UserCard.html' with name=item.name email=item.email id=item.id photo=item.photo%}
+           
+        {% endfor %}
+         <!--
                 <div class="userDisplay">
                     <img src={{user.photo}} alt="Profile">
                     <div class="userDisplayInfoContainer">
@@ -24,8 +26,7 @@
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-    </main>
-</body>
-</html>
+            -->
+    </div>
+</main>
+{% endblock %}

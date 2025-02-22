@@ -18,4 +18,3 @@ def indexOrders(request):
     }
 
     return render(request, 'orders/index.html', data)
-
