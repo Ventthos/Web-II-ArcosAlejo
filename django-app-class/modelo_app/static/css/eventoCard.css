@@ -1,0 +1,21 @@
+.evento{
+    display: flex;
+    border: 1px solid black;
+}
+
+.evento img{
+    width: 16rem;
+    height: 100%
+}
+
+.info-evento{
+    padding: 1.2rem;
+}
+
+.info-evento h2{
+    font-size: 1.2rem;
+}
+
+.info-evento div p{
+    margin: 0.4rem 0;
+}

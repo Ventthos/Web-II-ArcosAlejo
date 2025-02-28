@@ -1,0 +1,9 @@
+.noticia img{
+    width: 100%;
+    height: 20rem;
+    object-fit: cover;
+}
+
+.noticia h1, .noticia p{
+    margin: 0.4rem;
+}
