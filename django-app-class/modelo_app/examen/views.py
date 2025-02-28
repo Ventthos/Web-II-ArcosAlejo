@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import Eventos
+from .models import Eventos, Boletos
 
 def parseEventos(eventosPrev):
     eventos = []
@@ -51,3 +51,23 @@ def eventosPage(request):
         "eventos": eventos, 
     }
     return render(request, 'examen/eventos.html', data)
+
+
+def boletosPage(request):
+    boletosPrev = Boletos.objects.all()
+    boletos = []
+    for boleto in boletosPrev:
+        boleto_dict = {
+            "precio": boleto.precio,
+            "tipo_boleto": boleto.tipo_boleto_id.name,
+            "evento": boleto.evento_id.name,
+            "fecha": boleto.fecha,
+            "localidad": boleto.evento_id.localidad_id.name,
+            "imagen": "https://img.freepik.com/vector-gratis/vector-dos-entradas-cine-disenadas-cerca-vista-superior-aislada-sobre-fondo-blanco_1284-47320.jpg?t=st=1740762968~exp=1740766568~hmac=142918579462580f2a950898ee522620383097bda4ed77daa1e5fde169ce361b&w=996"
+        }
+        boletos.append(boleto_dict)
+
+    data = {
+        "boletos": boletos,
+    }
+    return render(request, 'examen/boletos.html', data)

@@ -1,0 +1,17 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{%static 'css/boletoCard.css' %}">
+    <link rel="stylesheet" href="{%static 'css/boletos.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section>
+        <div class="gridEventos">
+            {% for boleto in boletos %}
+                {% include 'components/Boleto.html' with imagen=boleto.imagen tipoBoleto=boleto.tipo_boleto localidad=boleto.localidad evento=boleto.evento precio=boleto.precio %}
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}
