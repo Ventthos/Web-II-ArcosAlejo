@@ -34,5 +34,9 @@
     border-radius: 0.4rem;
     color: white;
     text-decoration: none;
+    transition: background-color 0.3s;
+}
 
+.info-evento a:hover{
+    background-color: #2b67c2;
 }
