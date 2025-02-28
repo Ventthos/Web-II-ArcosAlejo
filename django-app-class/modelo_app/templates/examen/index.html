@@ -1,0 +1,36 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{%static 'css/indexExamen.css' %}">
+{% endblock %}
+
+{% block content %}
+<main class="heroImagesContainer">
+    <img src="../../static/img/carnaval.jpg" alt="">
+    <img src="../../static/img/carnaval2.jpg" alt="">
+    <div class="dividedExpositor">
+        <img src="../../static/img/carnavalSmall1.jpg" alt="">
+        <img src="../../static/img/carnavalSmall2.jpg" alt="">
+    </div>
+    <img src="../../static/img/carnaval3.jpg" alt="">
+</main>
+
+<section>
+    <h2>Noticias</h2>
+    <div class="dividedExpositor">
+        <div class="flexColumn">
+            {% for noticia in noticias|slice:":2" %}
+                {% include 'components/Noticia.html' with titulo=noticia.titulo contenido=noticia.contenido imagen=noticia.imagen%}
+            {% endfor %}
+        </div>
+        <div class="flexColumn">
+            {% for evento in eventos|slice:":3" %}
+                {% include 'components/EventIndex.html' with nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad %}
+            {% endfor %}
+        </div>
+    </div>
+    
+</section>
+
+{% endblock %}
