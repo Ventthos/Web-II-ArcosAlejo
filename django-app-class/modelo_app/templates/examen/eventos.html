@@ -2,5 +2,19 @@
 
 {% load static %}
 {% block styles %}
-    <link rel="stylesheet" href="{%static 'css/indexExamen.css' %}">
+    <link rel="stylesheet" href="{%static 'css/eventos.css' %}">
+    <link rel="stylesheet" href="{%static 'css/eventoCard.css' %}">
+{% endblock %}
+
+
+{% block content %}
+<section>
+    <h1>Eventos</h1>
+    <div class="gridEventos">
+        {% for evento in eventos %}
+            {% include 'components/Event.html' with nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad botonMas=True %}
+        {% endfor %}
+    </div>
+</section>
+
 {% endblock %}

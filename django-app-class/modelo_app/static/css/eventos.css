@@ -1,0 +1,14 @@
+section{
+    padding: 2rem;
+}
+
+h1{
+    text-align: center;
+    font-size: 2rem;
+}
+
+.gridEventos{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1.2rem;
+}

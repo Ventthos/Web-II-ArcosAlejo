@@ -28,7 +28,7 @@
         </div>
         <div class="flexColumn">
             {% for evento in eventos|slice:":3" %}
-                {% include 'components/EventIndex.html' with nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad %}
+                {% include 'components/Event.html' with nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad %}
             {% endfor %}
         </div>
     </div>

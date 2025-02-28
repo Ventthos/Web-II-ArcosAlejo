@@ -3,19 +3,36 @@
     border: 1px solid black;
 }
 
+.evento p, .evento h2{
+    margin: 0;
+}
+
 .evento img{
-    width: 16rem;
+    width: 12rem;
     height: 100%
 }
 
 .info-evento{
     padding: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
 }
 
 .info-evento h2{
     font-size: 1.2rem;
+    margin-bottom: 1rem;
 }
 
 .info-evento div p{
     margin: 0.4rem 0;
+}
+
+.info-evento a{
+    padding: 0.6rem 1.2rem;
+    background-color: #0052cc;
+    border-radius: 0.4rem;
+    color: white;
+    text-decoration: none;
+
 }
