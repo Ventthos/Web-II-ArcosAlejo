@@ -32,7 +32,7 @@ def index(request):
         }
     ]
 
-    eventosPrev = Eventos.objects.all()
+    eventosPrev = Eventos.objects.all().order_by('-id')
 
     eventos = parseEventos(eventosPrev)
     data = {
@@ -45,7 +45,7 @@ def index(request):
 
 
 def eventosPage(request):
-    eventosPrev = Eventos.objects.all()
+    eventosPrev = Eventos.objects.all().order_by('-id')
     eventos = parseEventos(eventosPrev)
     data = {
         "eventos": eventos, 
@@ -54,7 +54,7 @@ def eventosPage(request):
 
 
 def boletosPage(request):
-    boletosPrev = Boletos.objects.all()
+    boletosPrev = Boletos.objects.all().order_by('-id')
     boletos = []
     for boleto in boletosPrev:
         boleto_dict = {
