@@ -12,7 +12,7 @@
     <h1>Eventos</h1>
     <div class="gridEventos">
         {% for evento in eventos %}
-            {% include 'components/Event.html' with nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad botonMas=True %}
+            {% include 'components/Event.html' with id=evento.id nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad botonMas=True%}
         {% endfor %}
     </div>
 </section>

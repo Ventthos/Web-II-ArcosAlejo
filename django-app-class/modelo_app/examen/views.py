@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from .models import Eventos, Boletos
 
 def parseEventos(eventosPrev):
@@ -6,6 +6,7 @@ def parseEventos(eventosPrev):
 
     for evento in eventosPrev:
         evento_dict = {
+            "id": evento.id,
             "nombre": evento.name,
             "contenido": "Curabitur vehicula eros at metus interdum, sed dictum enim fringilla. Ut faucibus sem euismod dui facilisis, at sollicitudin justo pharetra.",
             "imagen": "https://img.freepik.com/vector-gratis/patron-carnaval-brasileno-diseno-plano_23-2148811693.jpg?t=st=1740720734~exp=1740724334~hmac=46ffceba54f133084e981e411ce9e4656b98741580e180f4df2229456f17d8da&w=900",
@@ -15,6 +16,20 @@ def parseEventos(eventosPrev):
         }
         eventos.append(evento_dict)
     return eventos
+
+def parseBoletos(boletosPrev):
+    boletos = []
+    for boleto in boletosPrev:
+        boleto_dict = {
+            "precio": boleto.precio,
+            "tipo_boleto": boleto.tipo_boleto_id.name,
+            "evento": boleto.evento_id.name,
+            "fecha": boleto.fecha,
+            "localidad": boleto.evento_id.localidad_id.name,
+            "imagen": "https://img.freepik.com/vector-gratis/vector-dos-entradas-cine-disenadas-cerca-vista-superior-aislada-sobre-fondo-blanco_1284-47320.jpg?t=st=1740762968~exp=1740766568~hmac=142918579462580f2a950898ee522620383097bda4ed77daa1e5fde169ce361b&w=996"
+        }
+        boletos.append(boleto_dict)
+    return boletos
 
 # Create your views here.
 def index(request):
@@ -55,19 +70,21 @@ def eventosPage(request):
 
 def boletosPage(request):
     boletosPrev = Boletos.objects.all().order_by('-id')
-    boletos = []
-    for boleto in boletosPrev:
-        boleto_dict = {
-            "precio": boleto.precio,
-            "tipo_boleto": boleto.tipo_boleto_id.name,
-            "evento": boleto.evento_id.name,
-            "fecha": boleto.fecha,
-            "localidad": boleto.evento_id.localidad_id.name,
-            "imagen": "https://img.freepik.com/vector-gratis/vector-dos-entradas-cine-disenadas-cerca-vista-superior-aislada-sobre-fondo-blanco_1284-47320.jpg?t=st=1740762968~exp=1740766568~hmac=142918579462580f2a950898ee522620383097bda4ed77daa1e5fde169ce361b&w=996"
-        }
-        boletos.append(boleto_dict)
-
+    
+    boletos = parseBoletos(boletosPrev)
     data = {
         "boletos": boletos,
     }
     return render(request, 'examen/boletos.html', data)
+
+def boletosEvento(request, Evento_id):
+    evento = get_object_or_404(Eventos, id=Evento_id)  # ✅ Ahora usa el parámetro correcto
+    boletosPrev = Boletos.objects.filter(evento_id=evento)
+    boletos = parseBoletos(boletosPrev)
+
+    data = {
+        "evento": evento,
+        "boletos": boletos
+    }
+    return render(request, "examen/boletos.html", data)
+    

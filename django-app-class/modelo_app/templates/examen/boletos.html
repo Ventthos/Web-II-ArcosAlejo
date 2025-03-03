@@ -11,6 +11,9 @@
         <div class="gridEventos">
             {% for boleto in boletos %}
                 {% include 'components/Boleto.html' with imagen=boleto.imagen tipoBoleto=boleto.tipo_boleto localidad=boleto.localidad evento=boleto.evento precio=boleto.precio %}
+                
+            {% empty %}
+                <p>Sin productos disponibles.</p>
             {% endfor %}
         </div>
     </section>
