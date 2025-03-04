@@ -57,8 +57,9 @@
 
 {% block scripts %}
     <script>
-        const EVENT_ENDPOINT = "{% url 'eventEndpoint' %}"
+        const DATA_ENDPOINT = "{% url 'eventEndpoint' %}"
     </script>
+    <script src="{%static 'js/httpActions.js' %}"></script>
     <script src="{%static 'js/agregarEvento.js' %}"></script>
 
 {% endblock %}

@@ -1,6 +1,25 @@
 const buttonAdd = document.querySelector("#addEvent")
 const freeSpace = document.querySelector(".freeSpace")
 
+
+function deleteData(id){
+    const token = document.querySelector("#csrf_token").value
+    fetch(DATA_ENDPOINT, {
+        method: 'DELETE',
+        headers:{
+            "X-CSRFToken": token,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({id: id})
+    }).then((res)=>res.json())
+    .then((value)=>{
+        showLast()
+    }).catch((error) =>{
+        console.log(error)
+    })
+}
+
 function showAlert(data){
     console.log(data)
     const status = data.status == "success"
@@ -57,8 +76,4 @@ buttonAdd.addEventListener("click", function(event){
         console.log(error)
     })
 
-})
-
-document.addEventListener("DOMContentLoaded", function(){
-    showLast()
 })

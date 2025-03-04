@@ -213,7 +213,7 @@ def create_product(request):
 
     if not all([name, precio, localidad_id]):
         return JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
-    elif int(precio) <= 0:
+    elif float(precio) <= 0:
         return JsonResponse({"message": "El precio debe ser mayor a 0", "status": "error"}, status=400)
 
     try:
