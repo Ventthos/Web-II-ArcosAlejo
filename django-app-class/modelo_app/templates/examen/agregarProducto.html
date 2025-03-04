@@ -1,0 +1,55 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{%static 'css/agregarEvento.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+<div class="formSection">
+    <div>
+        <form action="" id="formEvent">
+            <h1>Agregar Producto</h1>
+            <input type="hidden" id="csrf_token" value="{{ csrf_token }}" name="csrf_token">
+            <input type="text" placeholder="Nombre del producto" name="name">
+            <input type="number" name="precio" id="precio">
+            <div class="field">
+                <label for="location">Localidad</label>
+                <select id="location" name="localidad_id">
+                    
+                    {% for localidad in localidades %}
+                        <option value="{{localidad.id}}">
+                            {{localidad.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="addEvent" id="addEvent">Agregar</button>
+        </form> 
+    </div>
+
+    <div class="freeSpace"></div>
+
+</div>
+
+<div class="tableSection">
+    <h1>Eventos recientemente agregados</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Precio</th>
+            <th>Localidad</th>
+        </tr>
+
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script>
+        const EVENT_ENDPOINT = "{% url 'eventEndpoint' %}"
+    </script>
+    <script src="{%static 'js/agregarEvento.js' %}"></script>
+
+{% endblock %}

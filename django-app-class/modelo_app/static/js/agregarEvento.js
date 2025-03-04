@@ -23,8 +23,17 @@ function showLast(){
                 <td>${evento.fecha_inicio}</td>
                 <td>${evento.fecha_fin}</td>
                 <td>${evento.localidad}</td>
-                <td><button class="butonEliminar">Eliminar</button></td>
             `
+            const deleteButton = document.createElement("button")
+            deleteButton.innerHTML = "Eliminar"
+            deleteButton.classList.add("butonEliminar")
+            deleteButton.addEventListener("click", function(){
+                deleteEvent(evento.id)
+            })
+            const actions = document.createElement("td")
+            actions.appendChild(deleteButton)
+            row.appendChild(actions)
+            
             table.appendChild(row)
         })
     }).catch((error) =>{
@@ -45,7 +54,6 @@ function deleteEvent(id){
         body: JSON.stringify({id: id})
     }).then((res)=>res.json())
     .then((value)=>{
-        showAlert("Elemento eliminado")
         showLast()
     }).catch((error) =>{
         console.log(error)
@@ -80,9 +88,9 @@ function showAlert(data){
 buttonAdd.addEventListener("click", function(event){
     event.preventDefault()
     const form = document.querySelector("#formEvent")
-    console.log(form)
+
     const formData = new FormData(form)
-    console.log(formData)
+
     const data = {}
     const token = document.querySelector("#csrf_token").value
     formData.forEach((value, key)=>{

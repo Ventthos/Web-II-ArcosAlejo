@@ -101,71 +101,102 @@ def addEventoPage(request):
     return render(request, "examen/agregarEvento.html", data)
 
 
-def eventManagement(request):
+def validar_evento(body):
+    name = body.get("name")
+    fecha_inicio_str = body.get("fecha_inicio")
+    fecha_fin_str = body.get("fecha_fin")
+    localidad_id = body.get("localidad_id")
+
+    if not all([name, fecha_inicio_str, fecha_fin_str, localidad_id]):
+        return None, JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
+
     try:
-        data = {}
-        if request.method == "POST":
-            body_unicode = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            
-            name = body.get("name")
-            fecha_inicio_str = body.get("fecha_inicio")
-            fecha_fin_str = body.get("fecha_fin")
-            localidad_id = body.get("localidad_id")
+        fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%dT%H:%M")
+        fecha_fin = datetime.strptime(fecha_fin_str, "%Y-%m-%dT%H:%M")
+        fecha_hoy = datetime.now()
+        lastEvent = Eventos.objects.last()
 
-            if not all([name, fecha_inicio_str, fecha_fin_str, localidad_id]):
-                return JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
+        if fecha_inicio < fecha_hoy:
+            return None, JsonResponse({"message": "La fecha de inicio debe ser mayor a la actual", "status": "error"}, status=400)
+        elif fecha_fin < fecha_inicio:
+            return None, JsonResponse({"message": "La fecha de fin debe ser mayor a la de inicio", "status": "error"}, status=400)
+        elif lastEvent and int(localidad_id) == lastEvent.localidad_id.id:
+            return None, JsonResponse({"message": "No se pueden agregar dos eventos seguidos en la misma localidad", "status": "error"}, status=400)
 
-            fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%dT%H:%M") 
-            fecha_fin = datetime.strptime(fecha_fin_str, "%Y-%m-%dT%H:%M") 
-            fecha_hoy = datetime.now()
-            lastEvent = Eventos.objects.last()
+        return {
+            "name": name,
+            "fecha_inicio": fecha_inicio,
+            "fecha_fin": fecha_fin,
+            "localidad_id": localidad_id
+        }, None
 
-            if fecha_inicio < fecha_hoy:
-                return JsonResponse({"message": "La fecha de inicio debe ser mayor a la fecha actual", "status": "error"}, status=400)
-            elif fecha_fin < fecha_inicio:
-                return JsonResponse({"message": "La fecha de fin debe ser mayor a la fecha de inicio", "status": "error"}, status=400)
-            elif int(localidad_id) == lastEvent.localidad_id.id:
-                return JsonResponse({"message": "No se pueden agregar dos eventos seguidos en la misma localidad", "status": "error"}, status=400)
+    except ValueError:
+        return None, JsonResponse({"message": "Formato de fecha inválido", "status": "error"}, status=400)
 
+def create_event(request):
+    
+    body = json.loads(request.body.decode('utf-8'))
+    datos_evento, error = validar_evento(body)
 
-            localidad = Localidad.objects.get(id=localidad_id)
-            
-            evento = Eventos(
-                name=name,
-                fecha_inicio=fecha_inicio,
-                fecha_fin=fecha_fin,
-                localidad_id=localidad
+    if error:
+        return error
+
+    localidad = get_object_or_404(Localidad, id=datos_evento["localidad_id"])
+    
+    evento = Eventos(
+            name=datos_evento["name"],
+            fecha_inicio=datos_evento["fecha_inicio"],
+            fecha_fin=datos_evento["fecha_fin"],
+            localidad_id=localidad
             )
-            evento.save()
+    evento.save()
 
-            data["user"] = {"name":evento.name, 
-                            "fecha_inicio": evento.fecha_inicio, 
-                            "fecha_fin": evento.fecha_fin, 
-                            "localidad": evento.localidad_id.name}
-            data["message"] = "Evento creado"
-            data["status"] = "success"
+    return JsonResponse({
+        "user": {
+            "name": evento.name,
+            "fecha_inicio": evento.fecha_inicio,
+            "fecha_fin": evento.fecha_fin,
+            "localidad": evento.localidad_id.name
+        },
+        "message": "Evento creado",
+        "status": "success"
+    })
 
+def delete_event(request):
+    
+    body = json.loads(request.body.decode('utf-8'))
+    event_id = body.get("id")
+
+    evento = get_object_or_404(Eventos, id=event_id)
+    evento.delete()
+
+    return JsonResponse({"message": "Evento eliminado", "status": "success"})
+
+def get_events(request):
+    
+    eventosPrev = Eventos.objects.all().order_by('-id')
+    eventos = parseEventos(eventosPrev)
+
+    return JsonResponse({
+        "eventos": eventos,
+        "message": "Eventos obtenidos",
+        "status": "success"
+    })
+
+def eventManagement(request):
+    
+    try:
+        if request.method == "POST":
+            return create_event(request)
         elif request.method == "DELETE":
-            body_unicode = request.body.decode('utf-8')
-            body = json.loads(body_unicode)
-            id = body.get("id")
-            evento = Eventos.objects.get(id=id)
-            evento.delete()
-            data["message"] = "Evento eliminado"
-            data["status"] = "success"
-        
+            return delete_event(request)
         elif request.method == "GET":
-            eventosPrev = Eventos.objects.all().order_by('-id')
-            eventos = parseEventos(eventosPrev)
-            
-            data["eventos"] = eventos
-            data["message"] = "Eventos obtenidos"
-            data["status"] = "success"
-
+            return get_events(request)
+        else:
+            return JsonResponse({"message": "Método no permitido", "status": "error"}, status=405)
     except Exception as e:
-        data["message"] = str(e)
-        data["status"] = "error"
         return JsonResponse({"message": str(e), "status": "error"}, status=500)
-
-    return JsonResponse(data) 
+    
+def productosPage(request):
+    
+    return render(request, 'examen/productos.html')
