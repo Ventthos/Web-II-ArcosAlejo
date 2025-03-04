@@ -3,6 +3,7 @@ import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Eventos, Boletos, Localidad, Productos
+from django.utils.timezone import now
 
 def parseEventos(eventosPrev):
     eventos = []
@@ -211,14 +212,20 @@ def create_product(request):
     precio = body.get("precio")
     localidad_id = body.get("localidad_id")
 
+    fechaActual = now().date()
+    productosHoyCant = Productos.objects.filter(created_at__date=fechaActual).count()
+
     if not all([name, precio, localidad_id]):
         return JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
     elif float(precio) <= 0:
         return JsonResponse({"message": "El precio debe ser mayor a 0", "status": "error"}, status=400)
+    elif productosHoyCant >= 10:
+        return JsonResponse({"message": "No se pueden agregar más de 10 productos al día", "status": "error"}, status=400)
+
 
     try:
         localidad = get_object_or_404(Localidad, id=localidad_id)
-        producto = Productos(name=name, precio=precio, localidad_id=localidad)
+        producto = Productos(name=name, precio=precio, localidad_id=localidad, created_at=datetime.now())
         producto.save()
         return JsonResponse({"message": "Producto creado", "status": "success"})
     except Exception as e:
@@ -242,7 +249,8 @@ def get_products(request):
             "id": producto.id,
             "name": producto.name,
             "precio": producto.precio,
-            "localidad": producto.localidad_id.name
+            "localidad": producto.localidad_id.name,
+            "created_at": producto.created_at.strftime("%Y-%m-%d %H:%M")
         }
         productos_list.append(producto_dict)
 
