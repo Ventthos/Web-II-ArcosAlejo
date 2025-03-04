@@ -1,0 +1,70 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{%static 'css/agregarEvento.css' %}">
+{% endblock %}
+
+{% block content %}
+    
+<div class="formSection">
+    <div>
+        <form action="">
+            <h1>Agregar evento</h1>
+            <input type="text" placeholder="Nombre del evento">
+            <div class="field">
+                <label for="date">Fecha de inicio</label>
+                <input type="datetime-local" id="dateStart" >
+            </div>
+            <div class="field">
+                <label for="dateEnd">Fecha final</label>
+                <input type="datetime-local" id="dateEnd" >
+            </div>
+            <div class="field">
+                <label for="location">Localidad</label>
+                <select name="" id="location" >
+                    
+                    {% for localidad in localidades %}
+                        <option value={{localidad.id}}>
+                            {{localidad.name}}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <button class="addEvent">Agregar</button>
+        </form> 
+    </div>
+
+    <div class="freeSpace"></div>
+
+</div>
+
+<div class="tableSection">
+    <h1>Eventos recientemente agregados</h1>
+    <table>
+        <tr>
+            <th>Nombre</th>
+            <th>Fecha inicio</th>
+            <th>Fecha fin</th>
+            <th>Localidad</th>
+            <th>Acciones</th>
+        </tr>
+
+        {% for recentAdded in recent %}
+            <tr>
+                <td>{{recentAdded.nombre}}</td>
+                <td>{{recentAdded.fecha_inicio}}</td>
+                <td>{{recentAdded.fecha_fin}}</td>
+                <td>{{recentAdded.localidad}}</td>
+                <td><button class="butonEliminar">Eliminar</button></td>
+            </tr>
+        {% endfor %}
+
+    </table>
+</div>
+{% endblock %}
+
+{% block scripts %}
+    <script src=""></script>
+
+{% endblock %}

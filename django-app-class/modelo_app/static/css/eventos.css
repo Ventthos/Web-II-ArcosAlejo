@@ -1,5 +1,7 @@
 section{
     padding: 2rem;
+    display: flex;
+    flex-direction: column;
 }
 
 h1{
@@ -12,4 +14,24 @@ h1{
     grid-template-columns: repeat(3, 1fr);
     gap: 1.2rem;
     min-height: 65vh;
+}
+
+.spacer{
+    grid-column: 2 / -1;
+}
+
+.addEvent{
+    padding: 0.8rem 1.6rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: auto; 
+    align-self: flex-start;
+    margin-left: 16%;
+    margin-bottom: 1rem;
+}
+
+.addEvent:hover{
+    background-color: rgb(65, 65, 65);
 }

@@ -1,6 +1,7 @@
 .evento{
     display: flex;
     border: 1px solid black;
+    
 }
 
 .evento p, .evento h2{
@@ -17,6 +18,8 @@
     display: flex;
     flex-direction: column;
     gap: 0.8rem;
+    justify-content: center;
+    text-align: center;
 }
 
 .info-evento h2{
@@ -29,12 +32,15 @@
 }
 
 .info-evento a{
+    display: inline-block;
     padding: 0.6rem 1.2rem;
     background-color: #0052cc;
     border-radius: 0.4rem;
     color: white;
     text-decoration: none;
     transition: background-color 0.3s;
+    margin: 0 auto;
+   
 }
 
 .info-evento a:hover{

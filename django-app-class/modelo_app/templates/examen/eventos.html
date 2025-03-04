@@ -10,7 +10,9 @@
 {% block content %}
 <section>
     <h1>Eventos</h1>
+    <a href="{% url 'agregar_evento_page' %}" class="addEvent">Agregar evento</a>
     <div class="gridEventos">
+        
         {% for evento in eventos %}
             {% include 'components/Event.html' with id=evento.id nombre=evento.nombre descipcion=evento.contenido imagen=evento.imagen localidad=evento.localidad botonMas=True%}
         {% endfor %}

@@ -1,0 +1,81 @@
+
+.formSection{
+    padding: 1.8rem 2.6rem;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 1rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+}
+
+form h1{
+    font-size: 1.4rem;
+    margin: 0;
+    text-align: center;
+}
+
+.field{
+    display: flex;
+    flex-direction: column;
+}
+
+input, select{
+    font-size: 0.9rem;
+    padding: 0.6rem;
+}
+
+.addEvent{
+    padding: 0.6rem 2rem;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: auto; 
+    align-self: center;
+    border-radius: 0.4rem;
+}
+
+.addEvent:hover{
+    background-color: rgb(65, 65, 65);
+}
+
+.tableSection{
+    padding: 1.8rem;
+}
+
+table{
+    width: 100%;
+    font-size: 1.2rem;
+    border-collapse: collapse;
+}
+
+tr{
+    width: 100%;
+    text-align: center;
+}
+
+th{
+    background-color: rgb(48, 48, 48);
+    color: white;
+}
+
+td, th{
+    border: 1px solid black;
+    padding: 1rem;
+}
+
+.butonEliminar{
+    background-color: red;
+    padding: 0.8rem 1.4rem;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+.butonEliminar:hover{
+    background-color: rgb(185, 4, 4);
+}

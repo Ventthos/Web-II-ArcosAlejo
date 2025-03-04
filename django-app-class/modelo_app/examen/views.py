@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, render
-from .models import Eventos, Boletos
+from .models import Eventos, Boletos, Localidad
 
 def parseEventos(eventosPrev):
     eventos = []
@@ -10,8 +10,8 @@ def parseEventos(eventosPrev):
             "nombre": evento.name,
             "contenido": "Curabitur vehicula eros at metus interdum, sed dictum enim fringilla. Ut faucibus sem euismod dui facilisis, at sollicitudin justo pharetra.",
             "imagen": "https://img.freepik.com/vector-gratis/patron-carnaval-brasileno-diseno-plano_23-2148811693.jpg?t=st=1740720734~exp=1740724334~hmac=46ffceba54f133084e981e411ce9e4656b98741580e180f4df2229456f17d8da&w=900",
-            "fecha_inicio": evento.fecha_inicio,
-            "fecha_fin": evento.fecha_fin,
+            "fecha_inicio": evento.fecha_inicio.strftime("%Y-%m-%d %H:%M"),
+            "fecha_fin": evento.fecha_fin.strftime("%Y-%m-%d %H:%M"),
             "localidad": evento.localidad_id.name
         }
         eventos.append(evento_dict)
@@ -87,4 +87,16 @@ def boletosEvento(request, Evento_id):
         "boletos": boletos
     }
     return render(request, "examen/boletos.html", data)
-    
+
+def addEventoPage(request):
+    localidades = Localidad.objects.all()
+    recentPrev = Eventos.objects.all().order_by('-id')[:5]
+
+    recent = parseEventos(recentPrev)
+
+    data = {
+        "localidades": localidades,
+        "recent": recent
+    }
+
+    return render(request, "examen/agregarEvento.html", data)

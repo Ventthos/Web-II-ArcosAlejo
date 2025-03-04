@@ -6,5 +6,6 @@ urlpatterns = [
     path("", views.index, name="index"),
     path("eventos", views.eventosPage, name="eventos"),
     path("boletos", views.boletosPage, name="boletos"),
-    path("boletos/<int:Evento_id>", views.boletosEvento, name="boletos_evento")
+    path("boletos/<int:Evento_id>", views.boletosEvento, name="boletos_evento"),
+    path("agregarEvento", views.addEventoPage, name="agregar_evento_page")
 ]
