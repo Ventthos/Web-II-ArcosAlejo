@@ -1,3 +1,6 @@
+from datetime import datetime
+import json
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
 from .models import Eventos, Boletos, Localidad
 
@@ -78,7 +81,7 @@ def boletosPage(request):
     return render(request, 'examen/boletos.html', data)
 
 def boletosEvento(request, Evento_id):
-    evento = get_object_or_404(Eventos, id=Evento_id)  # ✅ Ahora usa el parámetro correcto
+    evento = get_object_or_404(Eventos, id=Evento_id) 
     boletosPrev = Boletos.objects.filter(evento_id=evento)
     boletos = parseBoletos(boletosPrev)
 
@@ -90,13 +93,79 @@ def boletosEvento(request, Evento_id):
 
 def addEventoPage(request):
     localidades = Localidad.objects.all()
-    recentPrev = Eventos.objects.all().order_by('-id')[:5]
-
-    recent = parseEventos(recentPrev)
 
     data = {
         "localidades": localidades,
-        "recent": recent
     }
 
     return render(request, "examen/agregarEvento.html", data)
+
+
+def eventManagement(request):
+    try:
+        data = {}
+        if request.method == "POST":
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            
+            name = body.get("name")
+            fecha_inicio_str = body.get("fecha_inicio")
+            fecha_fin_str = body.get("fecha_fin")
+            localidad_id = body.get("localidad_id")
+
+            if not all([name, fecha_inicio_str, fecha_fin_str, localidad_id]):
+                return JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
+
+            fecha_inicio = datetime.strptime(fecha_inicio_str, "%Y-%m-%dT%H:%M") 
+            fecha_fin = datetime.strptime(fecha_fin_str, "%Y-%m-%dT%H:%M") 
+            fecha_hoy = datetime.now()
+            lastEvent = Eventos.objects.last()
+
+            if fecha_inicio < fecha_hoy:
+                return JsonResponse({"message": "La fecha de inicio debe ser mayor a la fecha actual", "status": "error"}, status=400)
+            elif fecha_fin < fecha_inicio:
+                return JsonResponse({"message": "La fecha de fin debe ser mayor a la fecha de inicio", "status": "error"}, status=400)
+            elif int(localidad_id) == lastEvent.localidad_id.id:
+                return JsonResponse({"message": "No se pueden agregar dos eventos seguidos en la misma localidad", "status": "error"}, status=400)
+
+
+            localidad = Localidad.objects.get(id=localidad_id)
+            
+            evento = Eventos(
+                name=name,
+                fecha_inicio=fecha_inicio,
+                fecha_fin=fecha_fin,
+                localidad_id=localidad
+            )
+            evento.save()
+
+            data["user"] = {"name":evento.name, 
+                            "fecha_inicio": evento.fecha_inicio, 
+                            "fecha_fin": evento.fecha_fin, 
+                            "localidad": evento.localidad_id.name}
+            data["message"] = "Evento creado"
+            data["status"] = "success"
+
+        elif request.method == "DELETE":
+            body_unicode = request.body.decode('utf-8')
+            body = json.loads(body_unicode)
+            id = body.get("id")
+            evento = Eventos.objects.get(id=id)
+            evento.delete()
+            data["message"] = "Evento eliminado"
+            data["status"] = "success"
+        
+        elif request.method == "GET":
+            eventosPrev = Eventos.objects.all().order_by('-id')
+            eventos = parseEventos(eventosPrev)
+            
+            data["eventos"] = eventos
+            data["message"] = "Eventos obtenidos"
+            data["status"] = "success"
+
+    except Exception as e:
+        data["message"] = str(e)
+        data["status"] = "error"
+        return JsonResponse({"message": str(e), "status": "error"}, status=500)
+
+    return JsonResponse(data) 

@@ -79,3 +79,22 @@ td, th{
 .butonEliminar:hover{
     background-color: rgb(185, 4, 4);
 }
+
+
+.alert{
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    color: white;
+    padding: 0.8rem;
+    margin-bottom: 1rem;
+    border-radius: 0.6rem;
+}
+
+.alert-error{
+    background-color: rgb(133, 2, 2);
+}
+
+.alert-success{
+    background-color: green;
+}

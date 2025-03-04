@@ -1,0 +1,115 @@
+const buttonAdd = document.querySelector("#addEvent")
+const freeSpace = document.querySelector(".freeSpace")
+
+function showLast(){
+    fetch(EVENT_ENDPOINT)
+    .then((res)=>res.json())
+    .then((value)=>{
+        const lastFiveEvents = value.eventos.slice(0,5)
+        const table = document.querySelector("table")
+        table.innerHTML = `
+            <tr>
+                <th>Nombre</th>
+                <th>Fecha de inicio</th>
+                <th>Fecha de fin</th>
+                <th>Localidad</th>
+                <th>Acciones</th>
+            </tr>
+        `
+        lastFiveEvents.forEach((evento)=>{
+            const row = document.createElement("tr")
+            row.innerHTML = `
+                <td>${evento.nombre}</td>
+                <td>${evento.fecha_inicio}</td>
+                <td>${evento.fecha_fin}</td>
+                <td>${evento.localidad}</td>
+                <td><button class="butonEliminar">Eliminar</button></td>
+            `
+            table.appendChild(row)
+        })
+    }).catch((error) =>{
+        console.log(error)
+    })
+}
+
+
+function deleteEvent(id){
+    const token = document.querySelector("#csrf_token").value
+    fetch(EVENT_ENDPOINT, {
+        method: 'DELETE',
+        headers:{
+            "X-CSRFToken": token,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({id: id})
+    }).then((res)=>res.json())
+    .then((value)=>{
+        showAlert("Elemento eliminado")
+        showLast()
+    }).catch((error) =>{
+        console.log(error)
+    })
+}
+
+function showAlert(data){
+    console.log(data)
+    const status = data.status == "success"
+    const message = data.message
+    let alert = document.createElement("div")
+    alert.innerHTML = `
+        <div class="alert alert-error">
+            <p>${message}</p>
+        </div>
+        `
+
+    if(status){
+        alert.innerHTML = `
+        <div class="alert alert-success">
+            <p>Evento agregado correctamente</p>
+        </div>
+        `    
+    }
+    
+    freeSpace.appendChild(alert)
+    setTimeout(()=>{
+        freeSpace.removeChild(alert)
+    }, 5000)  
+}
+
+buttonAdd.addEventListener("click", function(event){
+    event.preventDefault()
+    const form = document.querySelector("#formEvent")
+    console.log(form)
+    const formData = new FormData(form)
+    console.log(formData)
+    const data = {}
+    const token = document.querySelector("#csrf_token").value
+    formData.forEach((value, key)=>{
+        data[key] = value
+    })
+
+    console.log(data)
+
+    fetch(EVENT_ENDPOINT, {
+        method: 'POST',
+        headers:{
+            "X-CSRFToken": token,
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(data)
+
+    }).then((res)=>res.json())
+    .then((value)=>{
+        showAlert(value)
+        showLast()
+    }).catch((error) =>{
+        console.log(error)
+    })
+
+})
+
+document.addEventListener("DOMContentLoaded", function(){
+    showLast()
+})
