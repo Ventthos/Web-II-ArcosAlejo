@@ -13,7 +13,7 @@
             <h1>Agregar Producto</h1>
             <input type="hidden" id="csrf_token" value="{{ csrf_token }}" name="csrf_token">
             <input type="text" placeholder="Nombre del producto" name="name">
-            <input type="number" name="precio" id="precio">
+            <input type="number" name="precio" id="precio" placeholder="Precio">
             <div class="field">
                 <label for="location">Localidad</label>
                 <select id="location" name="localidad_id">
@@ -48,8 +48,8 @@
 
 {% block scripts %}
     <script>
-        const EVENT_ENDPOINT = "{% url 'eventEndpoint' %}"
+        const PRODUCT_ENDPOINT = "{% url 'productsEndpoint' %}"
     </script>
-    <script src="{%static 'js/agregarEvento.js' %}"></script>
+    <script src="{%static 'js/agregarProductos.js' %}"></script>
 
 {% endblock %}

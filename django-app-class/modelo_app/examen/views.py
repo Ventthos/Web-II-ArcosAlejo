@@ -2,7 +2,7 @@ from datetime import datetime
 import json
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, render
-from .models import Eventos, Boletos, Localidad
+from .models import Eventos, Boletos, Localidad, Productos
 
 def parseEventos(eventosPrev):
     eventos = []
@@ -90,6 +90,7 @@ def boletosEvento(request, Evento_id):
         "boletos": boletos
     }
     return render(request, "examen/boletos.html", data)
+
 
 def addEventoPage(request):
     localidades = Localidad.objects.all()
@@ -184,7 +185,6 @@ def get_events(request):
     })
 
 def eventManagement(request):
-    
     try:
         if request.method == "POST":
             return create_event(request)
@@ -198,5 +198,63 @@ def eventManagement(request):
         return JsonResponse({"message": str(e), "status": "error"}, status=500)
     
 def productosPage(request):
-    
-    return render(request, 'examen/productos.html')
+    localidades = Localidad.objects.all()
+    data = {
+        "localidades": localidades,
+    }
+    return render(request, 'examen/agregarProducto.html', data)
+
+
+def create_product(request):
+    body = json.loads(request.body.decode('utf-8'))
+    name = body.get("name")
+    precio = body.get("precio")
+    localidad_id = body.get("localidad_id")
+
+    if not all([name, precio, localidad_id]):
+        return JsonResponse({"message": "Faltan datos", "status": "error"}, status=400)
+    elif int(precio) <= 0:
+        return JsonResponse({"message": "El precio debe ser mayor a 0", "status": "error"}, status=400)
+
+    try:
+        localidad = get_object_or_404(Localidad, id=localidad_id)
+        producto = Productos(name=name, precio=precio, localidad_id=localidad)
+        producto.save()
+        return JsonResponse({"message": "Producto creado", "status": "success"})
+    except Exception as e:
+        return JsonResponse({"message": str(e), "status": "error"}, status=500)
+
+def delete_product(request):
+    body = json.loads(request.body.decode('utf-8'))
+    product_id = body.get("id")
+
+    producto = get_object_or_404(Productos, id=product_id)
+    producto.delete()
+
+    return JsonResponse({"message": "Producto eliminado", "status": "success"})
+
+def get_products(request):
+    productos = Productos.objects.all().order_by('-id')
+    productos_list = []
+
+    for producto in productos:
+        producto_dict = {
+            "id": producto.id,
+            "name": producto.name,
+            "precio": producto.precio,
+            "localidad": producto.localidad_id.name
+        }
+        productos_list.append(producto_dict)
+
+    return JsonResponse({"productos": productos_list, "message": "Productos obtenidos", "status": "success"})
+
+def productManagement(request):
+    try:
+        if request.method == "POST":
+            return create_product(request)
+        elif request.method == "DELETE":
+            return delete_product(request)
+        elif request.method == "GET":
+            return get_products(request)
+    except Exception as e:
+        return JsonResponse({"message": str(e), "status": "error"}, status=500)
