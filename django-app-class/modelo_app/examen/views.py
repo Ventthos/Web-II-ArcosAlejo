@@ -35,6 +35,21 @@ def parseBoletos(boletosPrev):
         boletos.append(boleto_dict)
     return boletos
 
+def parseProductos(productosPrev):
+    productos_list = []
+
+    for producto in productosPrev:
+        producto_dict = {
+            "id": producto.id,
+            "name": producto.name,
+            "precio": producto.precio,
+            "localidad": producto.localidad_id.name,
+            "created_at": producto.created_at.strftime("%Y-%m-%d %H:%M"),
+            "imagen": "https://static.vecteezy.com/system/resources/thumbnails/028/047/017/small/3d-check-product-free-png.png"
+        }
+        productos_list.append(producto_dict)
+    return productos_list
+
 # Create your views here.
 def index(request):
 
@@ -205,6 +220,15 @@ def productosPage(request):
     }
     return render(request, 'examen/agregarProducto.html', data)
 
+def showProductosPage(request):
+    productos = Productos.objects.all().order_by('-id')
+    productos_list = parseProductos(productos)
+
+    data ={
+        "productos": productos_list
+    }
+
+    return render(request, 'examen/Productos.html', data)
 
 def create_product(request):
     body = json.loads(request.body.decode('utf-8'))
@@ -242,17 +266,7 @@ def delete_product(request):
 
 def get_products(request):
     productos = Productos.objects.all().order_by('-id')
-    productos_list = []
-
-    for producto in productos:
-        producto_dict = {
-            "id": producto.id,
-            "name": producto.name,
-            "precio": producto.precio,
-            "localidad": producto.localidad_id.name,
-            "created_at": producto.created_at.strftime("%Y-%m-%d %H:%M")
-        }
-        productos_list.append(producto_dict)
+    productos_list = parseProductos(productos)
 
     return JsonResponse({"productos": productos_list, "message": "Productos obtenidos", "status": "success"})
 
@@ -266,3 +280,4 @@ def productManagement(request):
             return get_products(request)
     except Exception as e:
         return JsonResponse({"message": str(e), "status": "error"}, status=500)
+    

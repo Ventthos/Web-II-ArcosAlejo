@@ -4,4 +4,24 @@
     gap: 1.2rem;
     margin: 1rem;
     min-height: 80vh;
+   
+}
+
+.productos_section{
+    display: flex;
+    flex-direction: column;
+    gap:0.8rem;
+    margin-bottom: 1rem;
+}
+
+.buton_redirect{
+    padding: 0.8rem 1.6rem;
+    background-color: black;
+    border-radius: 0.6rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    width: auto;
+    align-self: flex-start;
+    margin-left: 1rem;
 }

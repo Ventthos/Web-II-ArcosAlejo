@@ -1,0 +1,22 @@
+{% extends "base/base.html" %}
+
+{% load static %}
+{% block styles %}
+    <link rel="stylesheet" href="{%static 'css/boletoCard.css' %}">
+    <link rel="stylesheet" href="{%static 'css/boletos.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section class="productos_section">
+        <div class="gridEventos">
+            {% for producto in productos %}
+                {% include 'components/Producto.html' with imagen=producto.imagen nombre=producto.name precio=producto.precio localidad=producto.localidad  %}
+                
+            {% empty %}
+                <p>Sin productos disponibles.</p>
+
+            {% endfor %}
+        </div>
+        <a href="{% url 'agregar_productos_page'%}" class="buton_redirect">Agregar producto</a>
+    </section>
+{% endblock %}
