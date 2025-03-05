@@ -15,6 +15,7 @@ function deleteData(id){
     }).then((res)=>res.json())
     .then((value)=>{
         showLast()
+        showAlert(value)
     }).catch((error) =>{
         console.log(error)
     })
@@ -34,10 +35,12 @@ function showAlert(data){
     if(status){
         alert.innerHTML = `
         <div class="alert alert-success">
-            <p>Elemento agregado correctamente</p>
+            <p>${message}</p>
         </div>
         `    
     }
+
+
     
     freeSpace.appendChild(alert)
     setTimeout(()=>{
