@@ -24,7 +24,6 @@
 }
 
 .product-image{
-    
     border-radius: 4rem;
 }
 
@@ -52,6 +51,19 @@
 .product-details p{
     color: #86878b;
     font-weight: 600;
+}
+
+.product-details a{
+    border-radius: 1rem;
+    background-color: rgb(192, 49, 5);
+    padding: 0.8rem 1.2rem;
+    color: white;
+    text-decoration: none;
+    transition: background-color 0.3s;
+}
+
+.product-details a:hover{
+    background-color: rgb(217, 86, 46);
 }
 
 .inputSearch{
