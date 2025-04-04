@@ -1,0 +1,47 @@
+.container{
+    width: 80%;
+    margin: 0 auto;
+}
+
+h1{
+    font-size: 1.4rem;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+}
+
+.labelInput{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    gap: 0.3rem;
+}
+
+.labelInput label{
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+.labelInput input, textarea, select{
+    font-size: 0.8rem;
+    padding: 0.4rem 0.6rem;
+}
+
+.doubleContainer{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 1rem;
+    width: 100%;
+}
+
+.blueButton{
+    background-color: rgb(40, 98, 222);
+    color: white;
+    align-self: center;
+    font-size: 1rem;
+    padding: 0.8rem 2.6rem;
+    border-radius: 0.4rem;
+}
