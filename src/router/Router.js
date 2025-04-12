@@ -8,6 +8,7 @@ import Products from '../page/Products';
 import Product from "../page/Product"
 import { Cart } from "../page/Cart"
 import { CreateProductPage } from "../page/CreateProduct"
+import { ReducerScreen } from "../page/ReducerScreen"
 
 export default function MyRouters()
 {
@@ -21,6 +22,7 @@ export default function MyRouters()
             <Route path="/products/:id" element={<Product/>}/>
             <Route path="/cart" element={<Cart/>}/>
             <Route path="/addProduct" element={<CreateProductPage/>}/>
+            <Route path="/usereducer-component" element={<ReducerScreen/>}/>
         </Routes>
     )
 }

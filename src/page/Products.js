@@ -5,7 +5,7 @@ import { use, useEffect, useState } from "react";
 
 export default function Products(){
     RedirectToLogin()
-    const [products, setProducts] = useState(null)
+    const [products, setProducts] = useState([])
     const [word, setWord] = useState(null)
     const navigate = useNavigate();
     const [loading, setLoading] = useState(false)
@@ -29,36 +29,50 @@ export default function Products(){
         }  
     }
 
+    function getProductFromLocalStorage(){
+        const localData = localStorage.getItem("newProducts")
+        const newProducts = localData ? JSON.parse(localData) : []
+        return newProducts
+    }
+
     useEffect(() => {    
         const fetchProducts = async () => {
             setLoading(true)
-            const products = await getProducts()
-            console.log(products)
-            setProducts(products.products)
+            const response = await getProducts()
+            let baseProducts = response.products
+    
+            const newProducts = getProductFromLocalStorage()
+    
+            setProducts([...baseProducts, ...newProducts])
+
             setLoading(false)
         }
-
+    
         fetchProducts()
-        
     }, [])
 
     useEffect(() => {
-        
-        const hasWord = word !== null && word !== undefined && word.length >3
-        console.log("llamada")
-        if(!hasWord){
+        const hasWord = word !== null && word !== undefined && word.length > 3
+        if (!hasWord) {
             return
         }
+    
         const fetchProductsByWord = async () => {
             setLoading(true)
+    
             const data = await getProductsByWord(word)
-            console.log(data)
-            setProducts(data.products)
+            const baseProducts = data.products
+    
+            const localProducts = getProductFromLocalStorage()
+            const filteredLocalProducts = localProducts.filter(product =>
+                product.title.toLowerCase().includes(word.toLowerCase())
+            )
+    
+            setProducts([...baseProducts, ...filteredLocalProducts])
             setLoading(false)
         }
-
+    
         fetchProductsByWord()
-        
     }, [word])
 
     return(
