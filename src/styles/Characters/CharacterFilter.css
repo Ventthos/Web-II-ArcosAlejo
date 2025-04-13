@@ -1,0 +1,54 @@
+.characterFiltersMain{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.filtersForm{
+    display: flex;
+    flex-direction: column;
+}
+
+.labelSelect, .labelInput{
+    display: flex;
+    flex-direction: column;
+    font-size: 1.2rem;
+    gap: 0.5rem;
+}
+
+.labelSelect select, .labelInput input{
+    font-size: 1.5rem;
+    padding: 0.8rem 1.4rem;
+    height: 100%;
+}
+
+.labelSelect label, .labelInput label{
+    color: white;
+}
+
+.filtersContainer{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 1.4rem;
+}
+
+.filtersContainer .labelInput:nth-child(1) {
+    grid-column: 1/3;
+}
+
+#submitButton{
+    background-color: var(--title-blue);
+    color: white;
+    font-size: 1.6rem;
+    border: none;
+    padding: 0.8rem 1.8rem;
+    font-weight: bold;
+    border-radius: 0.6rem;
+    margin-top: 1rem;
+    align-self: flex-end;
+}
+
+.charactersDisplay{
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+}

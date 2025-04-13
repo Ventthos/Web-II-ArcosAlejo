@@ -1,0 +1,15 @@
+.favoutiteCharacterCard{
+    background-color: #f3f3f0;
+    max-width: 23rem;
+}
+
+.favoutiteCharacterCard img{
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.favoutiteCharacterCard .characterName{
+    padding: 1.2rem;
+    color: black;
+    font-weight: bold;
+}

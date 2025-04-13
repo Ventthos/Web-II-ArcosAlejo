@@ -1,0 +1,10 @@
+main{  
+    min-height: 100dvh;
+}
+
+.title{
+    background-image: url('../../assets/img/episodesBackground.jpg');
+    text-align: center;
+    padding: 2rem;
+}
+

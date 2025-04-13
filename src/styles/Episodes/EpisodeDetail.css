@@ -1,0 +1,53 @@
+.episodeDetailMain{
+    text-align: center;
+    padding: 2rem;
+}
+
+.episodeDetailMain hr{
+    width: 6%;
+    margin: 0 auto;
+    margin-bottom: 2rem;
+}
+
+.episodeDetailMain h1{
+    margin-bottom: 8rem;
+    font-weight: lighter;
+}
+
+.episodeDetailMain p{
+    font-size: 1.8rem;
+    color: white;
+}
+
+.episodeDetailMain strong{
+    color: white;
+}
+
+.episodeInfo{
+    margin-bottom: 5rem;
+}
+
+.favouriteCharactersContainer{
+    display: flex;
+    gap: 3rem;
+    justify-content: center;
+    margin-bottom: 5rem;
+}
+
+.allCharactersContainer{
+    display: grid;
+    width: 75%;
+    margin: 0 auto;
+    grid-template-columns: repeat(2,1fr);
+    gap: 8rem;
+}
+
+.characterCard .likeButton{
+    height: auto;
+    margin-top: 1.6rem;
+    background-color: #f3f3f0;
+    border: 1px solid black;
+    width: 100%;
+    padding: 1rem 2rem;
+    justify-content: center;
+}

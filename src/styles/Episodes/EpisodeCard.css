@@ -1,0 +1,83 @@
+.episodeCard img{
+    width: 20rem;
+    height: 20rem;
+    border-radius:  1rem 0 0 1rem;
+}
+
+.episodeCard{
+    display: flex;
+    background-color: var(--medium-gray);
+    color: white;
+    border-radius: 1rem;
+    text-align: left;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+strong{
+    color: rgb(155, 155, 155);
+}
+
+.episodeCardInfo{
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    width: 100%;
+}
+.episodeCardInfo h3{
+    font-size: 2.1rem;
+}
+
+.episodeCardInfo p{
+    font-size: 1.5rem;
+}
+
+.likeButtons{
+    width: 100%;
+    display: flex;
+    gap: 1rem;
+}
+
+
+.likeButton, .dislikeButton{
+    border-radius: 0.6rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    font-weight: bold;
+    border: 0;
+    padding: 0.6rem 1.2rem;
+    transition: all 0.2s;
+    height: 100%;
+}
+
+.likeButton img, .dislikeButton img{
+    width: 2.6rem;
+    height: 2.6rem;
+}
+
+.likeButton:hover{
+    background-color: #22ae4b;
+    color: white;
+}
+
+.dislikeButton:hover{
+    background-color: #ee1b24;
+    color: white;
+}
+
+
+.likeButton:active{
+    background-color: #43c068;
+    color: white;
+}
+
+.dislikeButton:active{
+    background-color: #ec5a62;
+    color: white;
+}
+.likeButton:hover img, .dislikeButton:hover img{
+    filter: invert(100%);
+}
