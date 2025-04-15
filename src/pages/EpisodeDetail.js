@@ -3,6 +3,7 @@ import { useEffect, useReducer } from 'react';
 import { CharacterCard } from '../components/Characters/CharacterCard';
 import { FavoutiteCharacterCard } from '../components/Episodes/FavouriteCharacterCard';
 import '../styles/Episodes/EpisodeDetail.css';
+import { Header } from '../components/General/Header';
 
 const initialState = {
     episode: {},
@@ -149,35 +150,39 @@ export function EpisodeDetail() {
     }, [id]);
 
     return (
-        <main className='episodeDetailMain'>
-            <hr />
-            <h1>{state.episode.name}</h1>
+        <div>
+            <Header/>
+            <main className='episodeDetailMain'>
+                <hr />
+                <h1>{state.episode.name}</h1>
 
-            <p className='episodeInfo'>
-                <strong>Fecha de lanzamiento: </strong> {state.episode.air_date}. <strong>Código: </strong> {state.episode.episode}
-            </p>
+                <p className='episodeInfo'>
+                    <strong>Fecha de lanzamiento: </strong> {state.episode.air_date}. <strong>Código: </strong> {state.episode.episode}
+                </p>
 
-            <div className='favouriteCharactersContainer'>
-                {state.favouriteCharacters.map((character) => (
-                    <FavoutiteCharacterCard key={character.id} name={character.name} image={character.image} />
-                ))}
-            </div>
+                <div className='favouriteCharactersContainer'>
+                    {state.favouriteCharacters.map((character) => (
+                        <FavoutiteCharacterCard key={character.id} name={character.name} image={character.image} />
+                    ))}
+                </div>
 
-            <div className='allCharactersContainer'>
-                {state.randomCharacters.map((character) => (
-                    <CharacterCard
-                        key={character.id}
-                        id={character.id}
-                        likeManager={addLike}
-                        link={`/characters/${character.id}`}
-                        name={character.name}
-                        specie={character.species}
-                        status={character.status}
-                        image={character.image}
-                        likes={character.likes}
-                    />
-                ))}
-            </div>
-        </main>
+                <div className='allCharactersContainer'>
+                    {state.randomCharacters.map((character) => (
+                        <CharacterCard
+                            key={character.id}
+                            id={character.id}
+                            likeManager={addLike}
+                            link={`/characters/${character.id}`}
+                            name={character.name}
+                            specie={character.species}
+                            status={character.status}
+                            image={character.image}
+                            likes={character.likes}
+                        />
+                    ))}
+                </div>
+            </main>
+        </div>
+        
     );
 }

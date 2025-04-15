@@ -1,0 +1,142 @@
+.extraFooter{
+    background-color: #f2f0f1;
+    font-size: 1.4rem;
+}
+.footerBigImage{
+    display: flex;
+    justify-content: center;
+}
+
+.footerBigImage img{
+    width: 20rem;
+    height: 20rem;
+    margin-top: -4rem;
+}
+
+.linksAndForm, .socials{
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 8rem 0;
+    gap: 14rem;
+    width: 80%;
+}
+
+.linksAndForm strong, .listOfLinksTitle{
+    color: black;
+    margin-bottom: 2rem;
+}
+
+.links{
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2rem;
+    list-style-type: none;
+    width: 60%;
+}
+
+.links ul{
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.4rem;
+}
+
+.links ul li{
+    list-style-type: none;
+}
+
+.footerFormContainer{
+    width: 40%;
+}
+
+.footerFormContainer p{
+    margin-bottom: 2rem;
+}
+
+.footerForm input, .footerForm select {
+    border: 1px solid rgb(219, 218, 218);
+    padding: 1.8rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.4rem;
+    width: 100%;
+    box-sizing: border-box; /* Asegura que padding y border se incluyan en el ancho total */
+}
+
+
+.formColumn{
+    display: flex;
+    gap: 2rem;
+    width: 100%;
+    margin-bottom: 2rem;
+}
+
+.conditions {
+    display: flex;
+    align-items: start;
+    gap: 4rem;
+}
+
+.conditions p{
+    flex:1
+}
+
+.conditions a{
+    color: black;
+}
+
+.checkbox-container {
+    display: inline-flex;
+    align-items: center;
+  }
+  
+  .checkbox {
+    display: none; /* Ocultamos el checkbox original */
+  }
+  
+  .checkmark {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: white; /* Fondo blanco */
+    position: relative;
+    cursor: not-allowed; /* Cambia el cursor para indicar que no es interactivo */
+  }
+
+.submitFooter{
+    padding: 1.8rem 4.8rem  !important;
+    width: auto !important;
+    border: 1px solid black !important;
+    transition: all 0.3s !important;
+}
+
+.submitFooter:hover{
+    background-color: #fbfbfa;
+}
+
+.socials{
+    justify-content: space-between;
+    align-items: top;
+    padding: 4rem 0;
+}
+
+.socials img{
+    width: 10rem;
+    height: 10rem;
+}
+
+.finalSection{
+    margin: 0;
+    border-top: 2px solid #dadadb;
+    padding: 4rem 10%;
+}
+
+.lenguages{
+    display: flex;
+    gap: 3rem;
+}
+
+.lenguages strong{
+    color: black;
+}

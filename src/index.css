@@ -14,7 +14,7 @@
 
 :root{
   --title-font: 'Rick', sans-serif;
-  --main-font: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --main-font: "Montserrat", sans-serif;
   --title-blue: #01b1c8;
   --green-glow: #5fcd5d;
   --dark-gray: #262a33;
@@ -24,7 +24,9 @@
 *{
   font-family: var(--main-font);
   margin: 0;
+
 }
+
 
 html {
   font-size: 62.5%;

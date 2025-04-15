@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { EpisodeCard } from '../components/Episodes/EpisodeCard'
 import '../styles/Episodes/EpisodesPage.css'
 import { useState } from 'react'
+import { Header } from '../components/General/Header'
 
 export function Episodes(){
     const [episodes, setEpisodes] = useState([])
@@ -81,20 +82,24 @@ export function Episodes(){
     }, [])
 
     return(
-        <main>
-            <div className='title'>
-                <h1>Rick and Morty</h1>
-                <h2>Episodios</h2>
-            </div>       
-            <div className='grid'>
-                {
-                    episodes.map((episode)=>
-                        <EpisodeCard key={episode.id} id={episode.id} title={episode.name} code={episode.episode} date={episode.air_date} likesCount={episode.likes} 
-                            dislikeCount={episode.dislikes} likeManager={addLike} onClick={changePage}/>
-                    )
-                }
-            </div>
-        </main>
+        <div>
+            <Header/>
+            <main>
+                <div className='title'>
+                    <h1>Rick and Morty</h1>
+                    <h2>Episodios</h2>
+                </div>       
+                <div className='grid'>
+                    {
+                        episodes.map((episode)=>
+                            <EpisodeCard key={episode.id} id={episode.id} title={episode.name} code={episode.episode} date={episode.air_date} likesCount={episode.likes} 
+                                dislikeCount={episode.dislikes} likeManager={addLike} onClick={changePage}/>
+                        )
+                    }
+                </div>
+            </main>
+        </div>
+        
    
     )
 }

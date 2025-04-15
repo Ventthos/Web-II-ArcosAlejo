@@ -24,7 +24,8 @@
     color: #9f7033;
 }
 
-.heroImageContainer .backButton:hover svg{
+.heroImageContainer .backButton:hover svg, 
+.preFooter .preFooterIcons svg:hover{
     fill: #9f7033;
 }
 
@@ -88,19 +89,22 @@
     align-items: center;
     gap: 2rem;
     max-width: 80rem;
-    margin: 6rem auto;
+    margin: 10rem auto;
     font-size: 1.4rem;
     border-top: 2px solid #f2f0f1;
     border-bottom: 2px solid #f2f0f1;
     padding: 2rem;
 }
 
-.preFooter svg{
+.preFooter svg, .socials .preFooterIcons svg{
     width: 2.4rem;
     height: 2.4rem;
+    fill: black;
+    transition: all 0.3s;
 }
 
 .preFooterIcons{
     display: flex;
     gap: 3rem;
 }
+

@@ -1,8 +1,10 @@
-import { useEffect, useRef, useState } from 'react'
+import { use, useContext, useEffect, useRef, useState } from 'react'
 import { LabelInput } from '../components/General/LabelInput'
 import { LabelSelect } from '../components/General/LabelSelect'
 import '../styles/Characters/CharacterFilter.css'
 import { CharacterCard } from '../components/Characters/CharacterCard'
+import { Header } from '../components/General/Header'
+import { PageContext } from '../context/PageContext'
 
 export function CharacterFilter() {
     const [characters, setCharacters] = useState([])
@@ -15,6 +17,8 @@ export function CharacterFilter() {
         gender: "none"
     })
     const form = useRef()
+
+    const {setLastRoute} = useContext(PageContext)
 
     const buildUrl = () => {
         const params = new URLSearchParams()
@@ -47,6 +51,7 @@ export function CharacterFilter() {
         setFilters(data)
     }
 
+
     useEffect(() => {
         fetchData()
     }, [filters])
@@ -65,28 +70,33 @@ export function CharacterFilter() {
                     status={character.status}
                     specie={character.species}
                     image={character.image}
+                    link={`/characters/${character.id}`}
                 />
             ))
         }
     }
 
     return (
-        <main className="characterFiltersMain">
-            <h1>Buscar personaje</h1>
-            <form className='filtersForm' id="filtersForm" onSubmit={handleSubmit} ref={form}>
-                <div className='filtersContainer'>
-                    <LabelInput text="Nombre" placeholder="Rick Sánchez" name="name" id="name" />
-                    <LabelSelect text="Estatus" options={["none", "alive", "dead", "unknown"]} name="status" id="status" />
-                    <LabelInput text="Species" placeholder="Human, ..." name="species" id="species" />
-                    <LabelInput text="Type" placeholder="..." name="type" id="type" />
-                    <LabelSelect text="Gender" options={["none", "female", "male", "genderless", "unknown"]} name="gender" id="gender" />
-                </div>
+        <div>
+            <Header/>
+            <main className="characterFiltersMain">
+                <h1>Buscar personaje</h1>
+                <form className='filtersForm' id="filtersForm" onSubmit={handleSubmit} ref={form}>
+                    <div className='filtersContainer'>
+                        <LabelInput text="Nombre" placeholder="Rick Sánchez" name="name" id="name" />
+                        <LabelSelect text="Estatus" options={["none", "alive", "dead", "unknown"]} name="status" id="status" />
+                        <LabelInput text="Species" placeholder="Human, ..." name="species" id="species" />
+                        <LabelInput text="Type" placeholder="..." name="type" id="type" />
+                        <LabelSelect text="Gender" options={["none", "female", "male", "genderless", "unknown"]} name="gender" id="gender" />
+                    </div>
 
-                <input type="submit" value="Buscar" id='submitButton' />
-            </form>
-            <div className='charactersDisplay'>
-                {renderState()}
-            </div>
-        </main>
+                    <input type="submit" value="Buscar" id='submitButton' />
+                </form>
+                <div className='charactersDisplay'>
+                    {renderState()}
+                </div>
+            </main>
+        </div>
+        
     )
 }

@@ -18,7 +18,7 @@ export function CharacterCard({id, name, status, specie, image,link, likeManager
 
                 <div className='buttonsContainer'>
                     <a className='characterDetailButton' id="detail" href={link}>Ir al detalle</a>
-                    <ButtonImage iconURL={likeButtonIcon} text={`Like (${likes})`} className={"characterDetailButton"} onClick={()=>likeManager(id)}/>
+                    {likeManager && <ButtonImage iconURL={likeButtonIcon} text={`Like (${likes})`} className={"characterDetailButton"} onClick={()=>likeManager(id)}/>}
                 </div>
                 
             </div>
