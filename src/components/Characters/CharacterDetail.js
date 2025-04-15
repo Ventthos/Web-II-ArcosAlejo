@@ -1,40 +1,31 @@
 import { useParams } from 'react-router'
 import '../../styles/Characters/CharacterDetail.css'
 import { Header } from '../General/Header'
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import { CharacterDetailCard } from './CharacterDetailCard'
+import { CharacterContext } from '../../context/CharacterContext'
 export function CharacterDetail(){
     const {id} = useParams()
 
-    const [character, setCharacter] = useState({})
+    const {currentCharacter, setCurrentCharacter} = useContext(CharacterContext)
     
     useEffect(() => {
         const fetchData = async () => {
             const data = await fetch(`https://rickandmortyapi.com/api/character/${id}`)
             const dataJson = await data.json()
-            setCharacter(dataJson)
+            setCurrentCharacter(dataJson)
         }
+        console.log(setCurrentCharacter)
         fetchData()
     }, [])
 
-    useEffect(() => {
-        console.log(character)
-    }, [character])
 
     return(
         <div>
             <Header/>
             <main className='characterDetailMain'>
-            {character.name && (
-                <CharacterDetailCard 
-                    image={character.image}
-                    name={character.name}
-                    origin={character.origin.name}
-                    location={character.location.name}
-                    species={character.species}
-                    gender={character.gender}
-                    type={character.type}
-                    status={character.status}/>
+            {currentCharacter?.name && (
+                <CharacterDetailCard />
                 )}   
             </main>
             
