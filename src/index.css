@@ -14,19 +14,8 @@ html {
   font-size: 62.5%;
 }
 
-body{
-
-}
-
-h1,h2{
-
-  
-}
-
-
-.grid{
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-  padding: 2rem;
-  gap: 2rem;
+.backgroundImageCentered{
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }

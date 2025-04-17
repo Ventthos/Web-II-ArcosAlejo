@@ -6,7 +6,7 @@ import '../styles/HouseComponent.css'
 export function HouseComponent({name, image, description, numberBedrooms, numberGuests, price, stars, superHost}){
     return(
         <div className="houseComponent">
-            <div className="houseComponent-Image" style={{backgroundImage:`url(${image})`}}>
+            <div className="houseComponent-Image backgroundImageCentered" style={{backgroundImage:`url(${image})`}}>
                {superHost && <SuperHostIndicator/>}
             </div>
             <div className="houseComponent-Info">
