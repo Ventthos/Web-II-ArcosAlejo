@@ -1,12 +1,12 @@
 
 import './App.css';
-import RickAndMortyRouter from './router/Router';
+import { SearchPage } from './pages/SearchPage';
 
 function App() {
   return (
     <div className="App">
       
-        <RickAndMortyRouter/>
+        <SearchPage/>
     
     </div>
   );

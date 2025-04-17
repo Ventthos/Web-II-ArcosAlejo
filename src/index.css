@@ -1,30 +1,11 @@
-@font-face {
-  font-family: 'Shlop';
-  src: url('./assets/fonts/shloprg.otf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Rick';
-  src: url('./assets/fonts/get_schwifty.ttf') format('truetype');
-  font-weight: normal;
-  font-style: normal;
-}
 
 :root{
-  --title-font: 'Rick', sans-serif;
-  --main-font: "Montserrat", sans-serif;
-  --title-blue: #01b1c8;
-  --green-glow: #5fcd5d;
-  --dark-gray: #262a33;
-  --medium-gray: #3c3f45;
+  --mainFont: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 *{
-  font-family: var(--main-font);
   margin: 0;
-
+  font-family: var(--mainFont);
 }
 
 
@@ -33,23 +14,14 @@ html {
 }
 
 body{
-  background-color: var(--dark-gray);
+
 }
 
 h1,h2{
-  font-family: var(--title-font);
 
-  color: var(--title-blue);
   
 }
 
-h1{
-  font-size: 5rem;
-}
-
-h2{
-  font-size: 3rem;
-}
 
 .grid{
   display: grid;
