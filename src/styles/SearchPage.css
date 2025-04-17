@@ -1,0 +1,12 @@
+.searchPage{
+    background-color: black;
+}
+
+.housesGrid{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    max-width: 120rem;
+    margin: 0 auto;
+    gap: 1rem;
+    padding: 1.5rem;
+}

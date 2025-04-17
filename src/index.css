@@ -6,6 +6,7 @@
 *{
   margin: 0;
   font-family: var(--mainFont);
+  box-sizing: border-box;
 }
 
 
