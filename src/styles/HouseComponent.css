@@ -26,6 +26,13 @@
     padding: 1.8rem 1rem ;
     display: flex;
     gap: 2.5rem;
+    justify-content: space-evenly;
+}
+
+@media(min-width: 768px){
+    .houseComponent-Info-Especifications{
+        justify-content: left;
+    }
 }
 
 .houseComponent-Info-AditionalInfo{

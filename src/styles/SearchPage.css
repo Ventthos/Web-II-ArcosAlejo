@@ -9,23 +9,28 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: center;
 }
 
-.searchPage-heroImage-Input{
-    width: 40%;
+.searchPage-heroImage-Input {
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    text-align: center;
 }
 
 .searchPage-heroImage-Input p{
     color: white;
-    font-size: 1.4rem;   
+    font-size: 2.2rem;   
 }
 
 .searchPage-heroImage-Input input{
     margin-top: 2.2rem;
-    width: 100%;
+    width: 80%;
     border-radius: 0.4rem;
     padding: 1rem 0.8rem;
     border: none;
+    font-size: 1.6rem; 
 }
 
 .searchPage-heroImage-Input input::placeholder{
@@ -45,6 +50,25 @@
 @media(min-width: 768px){
     .housesGrid{
         grid-template-columns: repeat(2, 1fr);
+    }
+
+    .searchPage-heroImage{
+        align-items:start;
+    }
+
+    .searchPage-heroImage-Input {
+        width: 40%;
+        align-items: start;
+        text-align: left;
+    }
+    .searchPage-heroImage-Input p{
+        color: white;
+        font-size: 1.4rem;   
+    }
+    
+    .searchPage-heroImage-Input input{
+        font-size: 1.2rem;
+        width: 100%;
     }
 }
 
