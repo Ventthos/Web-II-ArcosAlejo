@@ -11,14 +11,14 @@ export default function RickAndMortyRouter()
 {
     return (
         <Routes>
-            <Route path="/episodes" element={<Episodes />} />
+            <Route path="/" element={<Episodes />} />
             <Route path="/episodes/:id" element={<EpisodeDetail />} />
 
        
             <Route path="/characters" element={<CharacterFilter />  } />
               
 
-            <Route path="/" element={<Extra />} />
+            <Route path="/static" element={<Extra />} />
             <Route path="/characters/:id" element={
                 <CharacterContextProvider>
                     <CharacterDetail />
