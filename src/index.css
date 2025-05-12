@@ -1,6 +1,10 @@
 
 :root{
-  --mainFont: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  --mainFont: "Montserrat", sans-serif;
+  --titleFont: "Playfair Display", serif;
+  --backgroundBlue: #0e1326;
+  --accentBlue: #384150;
+  --selectionYellow: #febc2e;
 }
 
 *{
@@ -9,13 +13,20 @@
   box-sizing: border-box;
 }
 
+h1,h2,h3,p{
+  color:  white;
+}
+
+h1,h2,h3{
+  font-family: var(--titleFont);
+}
+
+p{
+  font-family: var(--mainFont);
+}
 
 html {
   font-size: 62.5%;
+  background-color: var(--backgroundBlue);
 }
 
-.backgroundImageCentered{
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-}

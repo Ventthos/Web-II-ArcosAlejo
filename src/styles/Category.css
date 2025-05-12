@@ -1,0 +1,22 @@
+.categoryWidget{
+    border: 2px solid var(--accentBlue);
+    display: flex;
+    align-items: center;
+    border-radius: 1.2rem;
+    overflow: hidden;
+    position: relative;
+    height: 6rem;
+    
+}
+
+.categoryWidget p{
+    font-size: 1.3rem;
+    padding-left: 6rem;
+}
+
+.categoryWidget img{
+    width: 10rem;
+    position: absolute;
+    
+    transform: translateX(-50%);
+}

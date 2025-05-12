@@ -1,0 +1,33 @@
+.searchInput{
+    width: 50%;
+    border: 2px solid var(--accentBlue);
+    background-color: var(--backgroundBlue);
+    padding: 0.8rem 1.6rem;
+    display: flex;
+    align-items: stretch;
+    gap: 1rem;
+    border-radius: 2.6rem;
+}
+
+.searchInput:focus-within {
+    border-color: rgb(179, 177, 177); 
+    box-shadow: 0 0 5px rgb(179, 177, 177); /* Opcional: efecto glow */
+}
+
+.searchInput input{
+    background-color: var(--backgroundBlue);
+    border: none;
+    color: white;
+    flex: 1;
+    width: 100%;
+}
+
+.searchInput input:focus {
+    outline: none; /* Quita el borde azul predeterminado */
+}
+
+.searchInput .icon{
+    color: var(--accentBlue);
+    width: 2.6rem;
+    height: 2.6rem;
+}

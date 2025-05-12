@@ -1,12 +1,12 @@
 
 import './App.css';
-import { SearchPage } from './pages/SearchPage';
+import { PlatesMenu } from './pages/PlatesMenu';
 
 function App() {
   return (
     <div className="App">
       
-        <SearchPage/>
+        <PlatesMenu/>
     
     </div>
   );
