@@ -1,0 +1,91 @@
+.detailContainer{
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 1rem;
+}
+
+.detailContainer hr{
+    border: 2px solid var(--accentBlue);
+}
+
+.infoHeader{
+    margin-top: 3rem;
+    margin-bottom: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.8rem;
+}
+
+#title{
+    margin: 0.1rem;
+    font-size: 3.4rem;
+    text-align: center;
+}
+
+.foodDisplayGrid{
+    display: grid;
+    margin-top: 4rem;
+}
+
+.foodSideViewInnerContainer {
+    border: 2px solid var(--accentBlue);
+    padding: 1.5rem;
+    border-radius: 1.4rem;
+}
+
+.foodSideViewInnerContainer h2{
+    font-size: 2.1rem;
+    margin-bottom: 1.2rem;
+}
+
+.ingredientsList{
+    margin-bottom: 2.2rem;
+}
+
+.ingredientsList ul{
+    list-style-type: circle;
+    list-style-position: inside;
+    padding-left: 1.5rem;
+}
+
+.ingredientsList li{
+    font-size: 1.4rem;
+    display: flex;
+}
+
+.linksList{
+    font-size: 1.4rem;
+}
+
+.linksList div{
+    margin-bottom: 1rem;
+}
+
+.plateImage img{
+     aspect-ratio: 10 / 7; /* equivalente a width:height = 100:70 */
+    width: 100%;
+    object-fit: cover; /* o 'contain' según necesites */
+}
+
+@media(min-width: 1200px){
+    .foodDisplayGrid{
+        grid-template-columns: repeat(2,1fr);
+        gap: 2rem 4rem;
+    }
+
+    .foodSideView {
+        grid-column: 1 / 2;
+        grid-row: 1 / 3;
+    }
+
+    .foodImage {
+        grid-column: 2 / 3;
+        grid-row: 1 / 2;
+    }
+
+    .foodSteps {
+        grid-column: 2 / 3;
+        grid-row: 2 / 3;
+    }
+}
+

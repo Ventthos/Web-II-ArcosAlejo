@@ -1,50 +1,47 @@
+import '../styles/PlateDetail.css'
+import { LiWithDelete } from '../components/General/LiWithDelete'
+
 export function PlateDetail(){
     return(
-        <div>
-            <div>
+        <div className='detailContainer'>
+            <div className='infoHeader'>
                 <p>Id:<strong>4569</strong></p>
-                <p>Beef</p>
+                <p><strong>Beef</strong></p>
             </div>
             <div>
                 <hr/>
-                <h1>Título</h1>
+                <h1 id='title'>Título</h1>
                 <hr/>
             </div>
             
-            <main>
-                <div>
+            <main className='foodDisplayGrid'>
+                <div className='plateImage'>
                     <img src="https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg"/>
                 </div>
-                <div>
-                    <div>
-                        <h2>Ingredients</h2>
-                        <ul>
-                            <li>
-                                <p>Carne</p>
-                                <button>Eliminar</button>
-                            </li>
-                            <li>
-                                <p>Carne</p>
-                                <button>Eliminar</button>
-                            </li>
-                            <li>
-                                <p>Carne</p>
-                                <button>Eliminar</button>
-                            </li>
-                            <li>
-                                <p>Carne</p>
-                                <button>Eliminar</button>
-                            </li>
-                        </ul>
-                    </div>
+                <div className='foodSideView'>
+                    <div className='foodSideViewInnerContainer'>
+                        <div className='ingredientsList'>
+                            <h2>Ingredients</h2>
+                            <ul>
+                                <LiWithDelete text={"Carne"}/>
+                            </ul>
+                        </div>
 
-                    <div>
-                        <h2>Links</h2>
-                        <p><strong>Youtube</strong> https://www.youtube.com/watch?v=fvjcE8fwI2k</p>
-                        <p><strong>Website</strong> https://www.bbcgoodfood.com/recipes/7745/baked-salmon-with-fennel-and-tomatoes</p>
-                    </div>
+                        <div className='linksList'>
+                            <h2>Links</h2>
+                            <div>
+                                <p><strong>Youtube</strong> </p>
+                                <p>https://www.youtube.com/watch?v=fvjcE8fwI2k</p>
+                            </div>
+                            <div>
+                                <p><strong>Website</strong> </p>
+                                <p>https://www.bbcgoodfood.com/recipes/7745/baked-salmon-with-fennel-and-tomatoes</p>
+                            </div>
+                            
+                        </div>
+                    </div> 
                 </div>
-                <div>
+                <div className='foodSteps'>
                     <h2>Steps</h2>
                     <ol>
                         <li>Calentar la carne</li>
