@@ -1,12 +1,14 @@
-
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
-import { PlatesMenu } from './pages/PlatesMenu';
+import { RecipesRouter } from './router/Router';
 
 function App() {
   return (
     <div className="App">
       
-        <PlatesMenu/>
+        <BrowserRouter>
+          <RecipesRouter/>
+        </BrowserRouter>
     
     </div>
   );

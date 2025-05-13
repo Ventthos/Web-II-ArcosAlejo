@@ -6,6 +6,7 @@ import { Category } from '../components/PlatesMainPage/Category'
 import { SearchInput } from '../components/General/SearchInput'
 import { getRecipesPerCategory } from '../services/getRecipes'
 import { RecipeWidget } from '../components/PlatesMainPage/RecipeWidget'
+import { debounce } from '../services/debounce'
 
 
 
@@ -22,6 +23,7 @@ function recipesReducer(state, action) {
         ),
       };
     case "setInput":
+      console.log(action.input)
       return {
         ...state,
         input: action.input,
@@ -66,6 +68,10 @@ export function PlatesMenu(){
         }
     }, [recipes.category]);
 
+    const debouncedSearch = debounce((e) =>
+      dispatchRecipes({ type: "setInput", input: e.target.value }), 300
+    );
+
     return(
         <div className='platesMenu'>
             <img className="platesMenuHeroImage" src={mainImage}/>
@@ -87,14 +93,17 @@ export function PlatesMenu(){
                 {/* Display de las recetas */}
                 <main className='recipesMainContainer'>
                     {/* Buscador de las recetas */}
-                    <SearchInput placeholder={"Search recipes and more"}/>
+                    <SearchInput placeholder={"Search recipes and more"} onChange={(e) => debouncedSearch(e)}/>
                         
                     {/* Grid de las recetas */}
                     <div className='recipesGrid'>
                         {
+                          recipes.filteredRecipes.length > 0 ?
                             recipes.filteredRecipes.map(recipe=>
                                 <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb}/>
                             )
+                            :
+                            <p>No hay recetas para mostrar</p>
                         }
                     </div>
                 </main>

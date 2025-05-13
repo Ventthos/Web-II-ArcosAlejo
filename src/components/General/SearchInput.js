@@ -5,7 +5,7 @@ export function SearchInput({placeholder, type, onChange}){
     return(
         <div className="searchInput">
             <CiSearch className="icon"/>
-            <input placeholder={placeholder}/>
+            <input placeholder={placeholder} onChange={onChange}/>
         </div>
     )
 }
