@@ -1,10 +1,10 @@
 import "../../styles/Category.css"
 
-export function Category({name, imageUrl}){
+export function Category({name, imageUrl, active, onClick}){
     return(
-        <div className="categoryWidget">
+        <button className="categoryWidget" onClick={onClick} style={active?{backgroundColor: "#febc2e"}:{}}>
             <img src={imageUrl}/>
-            <p>{name}</p>
-        </div>
+            <p style={active?{color: "var(--backgroundBlue)"}:{}}>{name}</p>
+        </button>
     )
 }

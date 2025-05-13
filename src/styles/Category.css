@@ -6,12 +6,14 @@
     overflow: hidden;
     position: relative;
     height: 6rem;
-    
+    background-color: var(--backgroundBlue);
+    transition: background-color 0.3s;
 }
 
 .categoryWidget p{
     font-size: 1.3rem;
     padding-left: 6rem;
+    font-weight: bold;
 }
 
 .categoryWidget img{
@@ -19,4 +21,8 @@
     position: absolute;
     
     transform: translateX(-50%);
+}
+
+.categoryWidget:hover{
+    background-color: var(--accentBlue);
 }

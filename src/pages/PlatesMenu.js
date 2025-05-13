@@ -4,38 +4,68 @@ import { useEffect, useReducer, useState } from 'react'
 import { getCategories } from '../services/getCategories'
 import { Category } from '../components/PlatesMainPage/Category'
 import { SearchInput } from '../components/General/SearchInput'
+import { getRecipesPerCategory } from '../services/getRecipes'
+import { RecipeWidget } from '../components/PlatesMainPage/RecipeWidget'
 
-function recipesReducer(state, action){
-    switch(action.action){
-        case "changeCategory":
-            console.log("Cargando")
-            return
-        case "search":
-            console.log("Buscando")
-            return
-        default:
-            return
-    }
+
+
+function recipesReducer(state, action) {
+  switch (action.type) {
+    case "setCategory":
+      return { ...state, category: action.category };
+    case "setRecipes":
+      return {
+        ...state,
+        currentRecipes: action.recipes,
+        filteredRecipes: action.recipes.filter(recipe =>
+          recipe.strMeal.includes(state.input)
+        ),
+      };
+    case "setInput":
+      return {
+        ...state,
+        input: action.input,
+        filteredRecipes: state.currentRecipes.filter(recipe =>
+          recipe.strMeal.includes(action.input)
+        ),
+      };
+    default:
+      return state;
+  }
 }
+
 
 export function PlatesMenu(){
 
     const [categories, setCategories] = useState(null)
     const [recipes, dispatchRecipes] = useReducer(recipesReducer, {
         currentRecipes: [],
-        filteredRecipes: []
+        filteredRecipes: [],
+        input: "",
+        category: ""
     })
 
     useEffect(()=>{
         const getData = async ()=>{
-            const data = await getCategories()
+            const data = await getCategories()    
             setCategories(data)
+            dispatchRecipes({ type: "setCategory", category:"Beef" })
         }
 
         getData()
     }, [])
     
-    
+    useEffect(() => {
+        async function fetchData() {
+            const recipesData = await getRecipesPerCategory(recipes.category);
+            dispatchRecipes({ type: "setRecipes", recipes: recipesData });
+        }
+
+        if (recipes.category) {
+            fetchData();
+        }
+    }, [recipes.category]);
+
     return(
         <div className='platesMenu'>
             <img className="platesMenuHeroImage" src={mainImage}/>
@@ -46,7 +76,8 @@ export function PlatesMenu(){
                     <div className='categoriesGrid'>
                         {
                             categories ? 
-                            categories.map(category => <Category key={category.idCategory} name={category.strCategory} imageUrl={category.strCategoryThumb}/>)
+                            categories.map(category => <Category key={category.idCategory} name={category.strCategory} imageUrl={category.strCategoryThumb}
+                            onClick={()=>dispatchRecipes({type:"setCategory", category: category.strCategory})} active={recipes.category == category.strCategory}/>)
                             :
                             <p>Cargando categorias</p>
                         }
@@ -60,7 +91,11 @@ export function PlatesMenu(){
                         
                     {/* Grid de las recetas */}
                     <div className='recipesGrid'>
-
+                        {
+                            recipes.filteredRecipes.map(recipe=>
+                                <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb}/>
+                            )
+                        }
                     </div>
                 </main>
             </div>
