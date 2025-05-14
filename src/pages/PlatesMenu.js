@@ -100,7 +100,7 @@ export function PlatesMenu(){
                         {
                           recipes.filteredRecipes.length > 0 ?
                             recipes.filteredRecipes.map(recipe=>
-                                <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb}/>
+                                <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb} recipeUrl={`/${recipe.idMeal}`}/>
                             )
                             :
                             <p>No hay recetas para mostrar</p>

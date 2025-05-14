@@ -1,29 +1,51 @@
 import '../styles/PlateDetail.css'
 import { LiWithDelete } from '../components/General/LiWithDelete'
+import { useParams } from 'react-router'
+import { useEffect, useState } from 'react'
+import { getRecipe } from '../services/getRecipe'
+import { formatRecipe } from '../services/FormatRecipe'
 
 export function PlateDetail(){
+    const id = useParams()
+    const [recipe, setRecipe] = useState(null)
+
+    useEffect(()=>{
+        const getData = async()=>{
+            const data = await getRecipe(id.id)
+            setRecipe(formatRecipe(data))
+        }
+
+        getData()
+    }, [])
+
     return(
         <div className='detailContainer'>
             <div className='infoHeader'>
-                <p>Id:<strong>4569</strong></p>
-                <p><strong>Beef</strong></p>
+                <p>Id: <strong>{recipe?.idMeal}</strong></p>
+                <p><strong>{recipe?.strCategory}</strong></p>
             </div>
             <div>
                 <hr/>
-                <h1 id='title'>Título</h1>
+                <h1 id='title'>{recipe?.strMeal}</h1>
                 <hr/>
             </div>
             
             <main className='foodDisplayGrid'>
                 <div className='plateImage'>
-                    <img src="https://www.themealdb.com/images/media/meals/wrssvt1511556563.jpg"/>
+                    <img src={recipe?.strMealThumb}/>
                 </div>
                 <div className='foodSideView'>
                     <div className='foodSideViewInnerContainer'>
                         <div className='ingredientsList'>
                             <h2>Ingredients</h2>
                             <ul>
-                                <LiWithDelete text={"Carne"}/>
+                                {recipe?.ingredients.map((item, index) => (
+                                    <LiWithDelete
+                                        key={index}
+                                        text={`${item.ingredient} (${item.measure})`}
+                                    />
+                                ))}
+        
                             </ul>
                         </div>
 
@@ -31,11 +53,11 @@ export function PlateDetail(){
                             <h2>Links</h2>
                             <div>
                                 <p><strong>Youtube</strong> </p>
-                                <p>https://www.youtube.com/watch?v=fvjcE8fwI2k</p>
+                                <a href={recipe?.strSource}>{recipe?.strYoutube}</a>
                             </div>
                             <div>
                                 <p><strong>Website</strong> </p>
-                                <p>https://www.bbcgoodfood.com/recipes/7745/baked-salmon-with-fennel-and-tomatoes</p>
+                                <a href={recipe?.strSource}>{recipe?.strSource}</a>
                             </div>
                             
                         </div>
@@ -43,13 +65,14 @@ export function PlateDetail(){
                 </div>
                 <div className='foodSteps'>
                     <h2>Steps</h2>
-                    <ol>
-                        <li>Calentar la carne</li>
-                        <li>Calentar la carne</li>
-                        <li>Calentar la carne</li>
-                        <li>Calentar la carne</li>
-                        <li>Calentar la carne</li>
-                    </ol>
+                    <p>
+                        {recipe?.strInstructions.split('\n').map((line, index) => (
+                            <span key={index}>
+                                {line}
+                               
+                            </span>
+                        ))}
+                    </p>
                 </div>
             </main>
             

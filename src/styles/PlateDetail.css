@@ -25,6 +25,7 @@
 .foodDisplayGrid{
     display: grid;
     margin-top: 4rem;
+    margin-bottom: 4rem;
 }
 
 .foodSideViewInnerContainer {
@@ -46,6 +47,9 @@
     list-style-type: circle;
     list-style-position: inside;
     padding-left: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 .ingredientsList li{
@@ -57,14 +61,32 @@
     font-size: 1.4rem;
 }
 
+.linksList a{
+    text-decoration: none;
+    color: white;
+}
+
 .linksList div{
     margin-bottom: 1rem;
 }
 
 .plateImage img{
-     aspect-ratio: 10 / 7; /* equivalente a width:height = 100:70 */
+    aspect-ratio: 10 / 6;
     width: 100%;
-    object-fit: cover; /* o 'contain' según necesites */
+    object-fit: cover; 
+    border-radius: 1rem;
+}
+
+.foodSteps{
+    color: white;
+    font-size: 1.4rem;
+}
+
+.foodSteps p{
+    margin-top: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
 }
 
 @media(min-width: 1200px){
