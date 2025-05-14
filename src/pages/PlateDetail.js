@@ -53,7 +53,7 @@ export function PlateDetail(){
                             <h2>Links</h2>
                             <div>
                                 <p><strong>Youtube</strong> </p>
-                                <a href={recipe?.strSource}>{recipe?.strYoutube}</a>
+                                <a href={recipe?.strYoutube}>{recipe?.strYoutube}</a>
                             </div>
                             <div>
                                 <p><strong>Website</strong> </p>

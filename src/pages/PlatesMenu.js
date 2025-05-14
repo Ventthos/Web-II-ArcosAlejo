@@ -7,7 +7,7 @@ import { SearchInput } from '../components/General/SearchInput'
 import { getRecipesPerCategory } from '../services/getRecipes'
 import { RecipeWidget } from '../components/PlatesMainPage/RecipeWidget'
 import { debounce } from '../services/debounce'
-
+import { SortSelect } from '../components/General/SortSelect'
 
 
 function recipesReducer(state, action) {
@@ -23,7 +23,6 @@ function recipesReducer(state, action) {
         ),
       };
     case "setInput":
-      console.log(action.input)
       return {
         ...state,
         input: action.input,
@@ -31,6 +30,17 @@ function recipesReducer(state, action) {
           recipe.strMeal.includes(action.input)
         ),
       };
+    case "sort":{
+      const sorted = [...state.filteredRecipes].sort((a, b) =>
+        action.order === "ascending"
+          ? a.strMeal.localeCompare(b.strMeal)
+          : b.strMeal.localeCompare(a.strMeal)
+        );
+      return {
+        ...state,
+        filteredRecipes: sorted
+      };
+    }    
     default:
       return state;
   }
@@ -72,6 +82,11 @@ export function PlatesMenu(){
       dispatchRecipes({ type: "setInput", input: e.target.value }), 300
     );
 
+    function handleSort(order){
+      console.log("Llamando")
+      dispatchRecipes({type:"sort", order:order })
+    }
+
     return(
         <div className='platesMenu'>
             <img className="platesMenuHeroImage" src={mainImage}/>
@@ -93,7 +108,13 @@ export function PlatesMenu(){
                 {/* Display de las recetas */}
                 <main className='recipesMainContainer'>
                     {/* Buscador de las recetas */}
-                    <SearchInput placeholder={"Search recipes and more"} onChange={(e) => debouncedSearch(e)}/>
+                    <div className='searchBar'>
+                      <SearchInput placeholder={"Search recipes and more"} onChange={(e) => debouncedSearch(e)}/>
+      
+                      <SortSelect onChangeSelection={handleSort}/>
+ 
+                    </div>
+                    
                         
                     {/* Grid de las recetas */}
                     <div className='recipesGrid'>

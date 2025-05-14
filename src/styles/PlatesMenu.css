@@ -14,7 +14,6 @@
     max-width: 140rem;
     padding: 2rem;
     display: grid;
-    grid-template-columns: 1fr 4fr;
     gap: 3rem;
 }
 
@@ -25,13 +24,47 @@
 }
 
 .categoriesGrid{
-    display: flex;
-    flex-direction: column;
+    display: grid;
     gap: 1.2rem;
+    grid-template-columns: repeat(2, 1fr);
+}
+
+.searchBar{
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 4rem;
+    justify-content: space-between;
+}
+
+.searchBar .searchInput{
+    width: 60%;
+}
+
+.searchBar .sort-select{
+    width: 30%;
+    align-self: stretch;
 }
 
 .recipesGrid{
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
     gap: 3.5rem;
+}
+
+
+@media(min-width: 1024px){
+    .mainContainer{
+        grid-template-columns: 1fr 4fr;
+    }
+    .categoriesGrid{
+        grid-template-columns: 1fr;
+    }
+    .recipesGrid{
+        grid-template-columns: repeat(3, 1fr);
+    }
+    .searchBar .searchInput{
+        width: 50%;
+    }
+    .searchBar .sort-select{
+        display: none;
+    }
 }

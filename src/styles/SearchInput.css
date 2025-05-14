@@ -1,13 +1,13 @@
 .searchInput{
-    width: 50%;
     border: 2px solid var(--accentBlue);
     background-color: var(--backgroundBlue);
     padding: 0.8rem 1.6rem;
     display: flex;
-    align-items: stretch;
+    align-items: center;
     gap: 1rem;
     border-radius: 2.6rem;
 }
+
 
 .searchInput:focus-within {
     border-color: rgb(179, 177, 177); 
