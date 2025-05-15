@@ -1,7 +1,70 @@
-.platesMenuHeroImage{
-    padding: 1rem;
-    border-radius: 2rem;
+.heroImageContainer{
     width: 100%;
+    padding: 1rem;
+}
+
+.platesMenuHeroImage{
+    background: url(../assets/img/mainImage.png);
+    background-repeat: no-repeat;
+    background-position: 40% bottom;
+    border-radius: 2rem;
+    padding: 1rem;
+    padding-left: 55%;
+    min-height: 46rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2rem;
+}
+
+.platesMenuHeroImage div{
+    display: flex;
+}
+
+.platesMenuHeroImage h1{
+    font-size: 5rem; 
+}
+
+.platesMenuHeroImage p, .platesMenuHeroImage h1{
+    color: var(--backgroundBlue);
+    font-weight: bold;
+}
+
+.platesMenuHeroImage p{
+    font-size: 1.1rem;
+}
+
+#movedParagraph{
+    margin-left: 6rem;
+}
+
+#shortDescription{
+    max-width: 14rem;
+    margin-left: 8rem;
+}
+
+#chefHat{
+    width: 2.5rem;
+}
+
+#redCircle{
+    color: red;
+    border: 1px solid var(--backgroundBlue);
+    border-radius: 100%;
+}
+
+@media(max-width: 680px){
+    .platesMenuHeroImage{
+        background-position: 45% bottom;
+        padding-left: 32%;
+    }
+    #movedParagraph{
+        margin-left: 2rem;
+    }
+
+    #shortDescription{
+        margin-left: 2rem;
+    }
 }
 
 .platesMenu{

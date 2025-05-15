@@ -1,4 +1,3 @@
-import mainImage from '../assets/img/mainImage.png'
 import '../styles/PlatesMenu.css'
 import { useEffect, useReducer, useState } from 'react'
 import { getCategories } from '../services/getCategories'
@@ -8,6 +7,8 @@ import { getRecipesPerCategory } from '../services/getRecipes'
 import { RecipeWidget } from '../components/PlatesMainPage/RecipeWidget'
 import { debounce } from '../services/debounce'
 import { SortSelect } from '../components/General/SortSelect'
+import chefIcon from '../assets/img/chefIcon.png'
+import { FaCircle } from "react-icons/fa6";
 
 
 function recipesReducer(state, action) {
@@ -48,7 +49,6 @@ function recipesReducer(state, action) {
 
 
 export function PlatesMenu(){
-
     const [categories, setCategories] = useState(null)
     const [recipes, dispatchRecipes] = useReducer(recipesReducer, {
         currentRecipes: [],
@@ -88,48 +88,59 @@ export function PlatesMenu(){
     }
 
     return(
-        <div className='platesMenu'>
+      <div>
+        <div className='heroImageContainer'>
+          <div className='platesMenuHeroImage'>
+            <p><img src={chefIcon} id="chefHat"/>HomeChef</p>
+            
+            <div>
+              <h1>Chefs</h1>
+              <p id='shortDescription'> <FaCircle id='redCircle'/> New Recipe for you to try out, let's cook</p>
+            </div>
+            <h1 id='movedParagraph'>Academy</h1>
+            <h1>Secrets</h1>
+          </div>
+        </div>
+        
+        
+        <div className='mainContainer'>
+          {/* Lado de las categorias */}
+          <aside className='categoriesContainer'>
+            <h2>Categories</h2>
+            <div className='categoriesGrid'>
+              {
+                categories ? 
+                categories.map(category => <Category key={category.idCategory} name={category.strCategory} imageUrl={category.strCategoryThumb}
+                  onClick={()=>dispatchRecipes({type:"setCategory", category: category.strCategory})} active={recipes.category == category.strCategory}/>)
+                :
+                <p>Cargando categorias</p>
+              }
+            </div>
+          </aside>
 
-          <img className="platesMenuHeroImage" src={mainImage}/>
-          <div className='mainContainer'>
-            {/* Lado de las categorias */}
-            <aside className='categoriesContainer'>
-                    <h2>Categories</h2>
-                    <div className='categoriesGrid'>
-                        {
-                            categories ? 
-                            categories.map(category => <Category key={category.idCategory} name={category.strCategory} imageUrl={category.strCategoryThumb}
-                            onClick={()=>dispatchRecipes({type:"setCategory", category: category.strCategory})} active={recipes.category == category.strCategory}/>)
-                            :
-                            <p>Cargando categorias</p>
-                        }
-                    </div>
-                </aside>
-
-                {/* Display de las recetas */}
-                <main className='recipesMainContainer'>
-                    {/* Buscador de las recetas */}
-                    <div className='searchBar'>
-                      <SearchInput placeholder={"Search recipes and more"} onChange={(e) => debouncedSearch(e)}/>
-      
-                      <SortSelect onChangeSelection={handleSort}/>
+          {/* Display de las recetas */}
+          <main className='recipesMainContainer'>
+            {/* Buscador de las recetas */}
+            <div className='searchBar'>
+              <SearchInput placeholder={"Search recipes and more"} onChange={(e) => debouncedSearch(e)}/>
+              <SortSelect onChangeSelection={handleSort}/>
  
-                    </div>
+            </div>
                     
                         
-                    {/* Grid de las recetas */}
-                    <div className='recipesGrid'>
-                        {
-                          recipes.filteredRecipes.length > 0 ?
-                            recipes.filteredRecipes.map(recipe=>
-                                <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb} recipeUrl={`/${recipe.idMeal}`}/>
-                            )
-                            :
-                            <p>No hay recetas para mostrar</p>
-                        }
-                    </div>
-                </main>
+            {/* Grid de las recetas */}
+            <div className='recipesGrid'>
+            {
+              recipes.filteredRecipes.length > 0 ?
+              recipes.filteredRecipes.map(recipe=>
+                <RecipeWidget key={recipe.idMeal} name={recipe.strMeal} imageUrl={recipe.strMealThumb} recipeUrl={`/${recipe.idMeal}`}/>
+              )
+              :
+              <p>No hay recetas para mostrar</p>
+            }
             </div>
+          </main>
         </div>
+      </div>
     )
 }
