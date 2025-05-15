@@ -41,7 +41,6 @@
 }
 
 .searchBar .sort-select{
-    width: 30%;
     align-self: stretch;
 }
 
@@ -49,6 +48,7 @@
     display: grid;
     gap: 3.5rem;
 }
+
 
 
 @media(min-width: 1024px){

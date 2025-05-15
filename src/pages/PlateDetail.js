@@ -12,11 +12,55 @@ export function PlateDetail(){
     useEffect(()=>{
         const getData = async()=>{
             const data = await getRecipe(id.id)
-            setRecipe(formatRecipe(data))
+            const formated = formatRecipe(data)
+            
+            const recipesLocal = getRecipesLocal()
+            const recipeInLocal = recipesLocal.find(recipe => recipe.id == id.id)
+            if (recipeInLocal) {
+                formated.ingredients = filterIngredientsDeleted(
+                    recipeInLocal.ingredients,
+                    formated.ingredients
+                )
+            }
+            setRecipe(formated)
         }
 
         getData()
     }, [])
+
+    function getRecipesLocal() {
+        const recipes = localStorage.getItem("recipes");
+        return recipes ? JSON.parse(recipes) : [];
+    }
+
+    function filterIngredientsDeleted(ingredientsLocal, ingredientsApi) {
+        const filteredIngredients = ingredientsApi.filter(
+            ingredient => !ingredientsLocal.includes(ingredient.ingredient)
+        );
+        return filteredIngredients;
+    }
+
+    function deleteIngredients(name) {
+        const recipesJson = getRecipesLocal();
+        let recipeInLocal = recipesJson.find(recipe => recipe.id == id.id);
+
+        if (!recipeInLocal) {
+            recipeInLocal = { id: id.id, ingredients: [] };
+            recipesJson.push(recipeInLocal);
+        }
+
+        if (!recipeInLocal.ingredients.includes(name)) {
+            recipeInLocal.ingredients.push(name);
+        }
+
+        localStorage.setItem("recipes", JSON.stringify(recipesJson));
+        setRecipe(prev => ({
+            ...prev,
+            ingredients: filterIngredientsDeleted(recipeInLocal.ingredients, prev.ingredients)
+        }))
+    }
+
+    
 
     return(
         <div className='detailContainer'>
@@ -39,12 +83,18 @@ export function PlateDetail(){
                         <div className='ingredientsList'>
                             <h2>Ingredients</h2>
                             <ul>
-                                {recipe?.ingredients.map((item, index) => (
-                                    <LiWithDelete
-                                        key={index}
-                                        text={`${item.ingredient} (${item.measure})`}
-                                    />
-                                ))}
+                                {
+                                    recipe?.ingredients.length > 0 ?
+                                    recipe?.ingredients.map((item, index) => (
+                                        <LiWithDelete
+                                            key={index}
+                                            text={`${item.ingredient} (${item.measure})`}
+                                            onDelete={()=>deleteIngredients(item.ingredient)}
+                                        />
+                                    ))
+                                    :
+                                    <p>No ingredients left</p>
+                                }
         
                             </ul>
                         </div>
@@ -53,11 +103,23 @@ export function PlateDetail(){
                             <h2>Links</h2>
                             <div>
                                 <p><strong>Youtube</strong> </p>
-                                <a href={recipe?.strYoutube}>{recipe?.strYoutube}</a>
+                                {
+                                    recipe?.strYoutube != "" ? 
+                                        <a href={recipe?.strYoutube}>{recipe?.strYoutube}</a>
+                                        :
+                                        <p>No video to show</p>
+                                }
+                                
                             </div>
                             <div>
                                 <p><strong>Website</strong> </p>
-                                <a href={recipe?.strSource}>{recipe?.strSource}</a>
+                                {
+                                    recipe?.strSource != "" ? 
+                                        <a href={recipe?.strSource}>{recipe?.strSource}</a>
+                                        :
+                                        <p>No website to show</p>
+                                }
+                                
                             </div>
                             
                         </div>

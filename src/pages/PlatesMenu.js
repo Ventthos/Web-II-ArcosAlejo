@@ -27,7 +27,7 @@ function recipesReducer(state, action) {
         ...state,
         input: action.input,
         filteredRecipes: state.currentRecipes.filter(recipe =>
-          recipe.strMeal.includes(action.input)
+          recipe.strMeal.toLowerCase().includes(action.input.toLowerCase())
         ),
       };
     case "sort":{
@@ -89,10 +89,11 @@ export function PlatesMenu(){
 
     return(
         <div className='platesMenu'>
-            <img className="platesMenuHeroImage" src={mainImage}/>
-            <div className='mainContainer'>
-                {/* Lado de las categorias */}
-                <aside className='categoriesContainer'>
+
+          <img className="platesMenuHeroImage" src={mainImage}/>
+          <div className='mainContainer'>
+            {/* Lado de las categorias */}
+            <aside className='categoriesContainer'>
                     <h2>Categories</h2>
                     <div className='categoriesGrid'>
                         {

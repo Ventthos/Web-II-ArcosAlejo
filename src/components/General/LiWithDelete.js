@@ -6,7 +6,7 @@ export function LiWithDelete({text, onDelete}){
         <li className="liWithDelete">
             <div>
                 <p>{text}</p>
-                <button>
+                <button onClick={onDelete}>
                     <MdDelete />
                 </button>
             </div>
