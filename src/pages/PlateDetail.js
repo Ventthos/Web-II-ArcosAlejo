@@ -60,6 +60,13 @@ export function PlateDetail(){
         }))
     }
 
+    function getYoutubeId(url){
+        if (!url) return null;
+        const match = url.match(
+                /(?:youtube\.com.*(?:\?|&)v=|youtu\.be\/)([a-zA-Z0-9_-]+)/
+            );
+        return match ? match[1] : null;  
+    }
     
 
     return(
@@ -104,7 +111,7 @@ export function PlateDetail(){
                             <div>
                                 <p><strong>Youtube</strong> </p>
                                 {
-                                    recipe?.strYoutube != "" ? 
+                                    recipe?.strYoutube ? 
                                         <a href={recipe?.strYoutube}>{recipe?.strYoutube}</a>
                                         :
                                         <p>No video to show</p>
@@ -127,6 +134,11 @@ export function PlateDetail(){
                 </div>
                 <div className='foodSteps'>
                     <h2>Steps</h2>
+                    {
+                        recipe?.strYoutube && 
+                        <iframe src={`https://www.youtube.com/embed/${getYoutubeId(recipe?.strYoutube)}`} title='Youtube tutorial'/>
+                    }
+                    
                     <p>
                         {recipe?.strInstructions.split('\n').map((line, index) => (
                             <span key={index}>
